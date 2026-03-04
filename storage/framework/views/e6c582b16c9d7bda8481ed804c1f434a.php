@@ -1,0 +1,1 @@
+<h1>ini halaman dummy</h1><?php /**PATH C:\laragon\www\absensi-karyawan\resources\views/admin/dummy.blade.php ENDPATH**/ ?>
