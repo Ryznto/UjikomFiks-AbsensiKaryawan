@@ -13,6 +13,10 @@
     Route::prefix('admin')->name('admin.')->middleware(['auth', 'role.admin'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('profil', [App\Http\Controllers\Admin\ProfilController::class, 'index'])->name('profil.index');
+Route::put('profil', [App\Http\Controllers\Admin\ProfilController::class, 'update'])->name('profil.update');
+Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('profil.password');
+
     // Karyawan
     Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class);
 Route::post('karyawan/{karyawan}/reset-password', [App\Http\Controllers\Admin\KaryawanController::class, 'resetPassword'])->name('karyawan.reset-password');
@@ -38,4 +42,7 @@ Route::prefix('karyawan')->name('karyawan.')->middleware(['auth', 'role.karyawan
     Route::post('presensi/pulang', [App\Http\Controllers\Karyawan\PresensiController::class, 'absenPulang'])->name('presensi.pulang');
     Route::get('izin-cuti', [App\Http\Controllers\Karyawan\IzinCutiController::class, 'index'])->name('izin-cuti.index');
     Route::post('izin-cuti', [App\Http\Controllers\Karyawan\IzinCutiController::class, 'store'])->name('izin-cuti.store');
-});
+    Route::get('profil', [App\Http\Controllers\Karyawan\ProfilController::class, 'index'])->name('profil');
+Route::put('profil/password', [App\Http\Controllers\Karyawan\ProfilController::class, 'updatePassword'])->name('profil.password');
+    });
+

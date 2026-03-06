@@ -45,27 +45,33 @@
         </main>
 
         {{-- BOTTOM NAV --}}
-        <nav class="bottom-nav">
-            <a href="{{ route('karyawan.dashboard') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.dashboard') ? 'active' : '' }}">
-                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-                    <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
-                </svg>
-                <span>Dashboard</span>
-            </a>
-            <a href="{{ route('karyawan.presensi.index') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.presensi.*') ? 'active' : '' }}">
-                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                </svg>
-                <span>Presensi</span>
-            </a>
-            <a href="{{ route('karyawan.izin-cuti.index') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.izin-cuti.*') ? 'active' : '' }}">
-                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                </svg>
-                <span>Izin & Cuti</span>
-            </a>
-        </nav>
+       <nav class="bottom-nav">
+    <a href="{{ route('karyawan.dashboard') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.dashboard') ? 'active' : '' }}">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Dashboard</span>
+    </a>
+    <a href="{{ route('karyawan.presensi.index') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.presensi.*') ? 'active' : '' }}">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        <span>Presensi</span>
+    </a>
+    <a href="{{ route('karyawan.izin-cuti.index') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.izin-cuti.*') ? 'active' : '' }}">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <span>Izin & Cuti</span>
+    </a>
+    <a href="{{ route('karyawan.profil') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.profil*') ? 'active' : '' }}">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+        </svg>
+        <span>Profil</span>
+    </a>
+</nav>
     </div>
 
     <script>

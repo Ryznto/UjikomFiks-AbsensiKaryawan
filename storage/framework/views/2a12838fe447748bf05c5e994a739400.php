@@ -91,12 +91,6 @@ unset($__errorArgs, $__bag); ?>
     </div>
 </div>
 
-
-<div class="card fade-in">
-    <div class="card-header">
-        <div class="card-title">Riwayat Pengajuan</div>
-    </div>
-
  
 <div class="card fade-in">
     <div class="card-header">

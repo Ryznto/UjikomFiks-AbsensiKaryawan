@@ -47,21 +47,30 @@
         </a>
     </div>
 
-    <div class="sidebar-footer">
-        <div class="user-card">
-            <div class="avatar">
-                {{ strtoupper(substr(auth()->user()->adminProfile->nama_admin ?? 'A', 0, 2)) }}
-            </div>
-            <div style="flex:1; min-width:0;">
-                <div class="user-name">{{ auth()->user()->adminProfile->nama_admin ?? 'Admin' }}</div>
-                <div class="user-role">{{ auth()->user()->nip }}</div>
-            </div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" title="Logout" style="background:none; border:none; cursor:pointer; color:var(--mid); display:flex; align-items:center;">
-                    <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                </button>
-            </form>
+   <div class="sidebar-footer">
+    <a href="{{ route('admin.profil.index') }}" class="user-card">
+        <div style="width: 34px; height: 34px; border-radius: 9px; overflow: hidden; flex-shrink: 0;">
+            @if(auth()->user()->adminProfile->foto)
+                <img src="{{ asset('storage/' . auth()->user()->adminProfile->foto) }}"
+                    style="width: 100%; height: 100%; object-fit: cover;">
+            @else
+                <div class="avatar">
+                    {{ strtoupper(substr(auth()->user()->adminProfile->nama_admin ?? 'A', 0, 2)) }}
+                </div>
+            @endif
         </div>
-    </div>
+        <div style="flex:1; min-width:0;">
+            <div class="user-name">{{ auth()->user()->adminProfile->nama_admin ?? 'Admin' }}</div>
+            <div class="user-role">{{ auth()->user()->nip }}</div>
+        </div>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" title="Logout" style="background:none; border:none; cursor:pointer; color:var(--mid); display:flex; align-items:center;">
+                <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                </svg>
+            </button>
+        </form>
+    </a>
+</div>
 </aside>

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
-
+use App\Models\IzinCuti;
 class PresensiController extends Controller
 {
    public function index(Request $request)
@@ -37,48 +37,63 @@ class PresensiController extends Controller
 }
 
     public function absenMasuk(Request $request)
-    {
-        $request->validate([
-            'foto'      => 'required|string', // base64
-            'latitude'  => 'required|numeric',
-            'longitude' => 'required|numeric',
-        ]);
+{
+    $request->validate([
+        'foto'      => 'required|string', // base64
+        'latitude'  => 'required|numeric',
+        'longitude' => 'required|numeric',
+    ]);
 
-        $karyawan = Auth::user()->karyawan;
-        $today    = today()->toDateString();
+    $karyawan = Auth::user()->karyawan;
+    $today    = today()->toDateString();
 
-        // Cek sudah absen masuk belum
-        $exists = Presensi::where('karyawan_id', $karyawan->id)
-            ->whereDate('tanggal', $today)
-            ->whereNotNull('jam_masuk')
-            ->exists();
+    // Cek izin/cuti approved di hari ini
+    $izinAktif = IzinCuti::where('karyawan_id', $karyawan->id)
+        ->where('status', 'approved')
+        ->whereDate('tanggal_mulai', '<=', $today)
+        ->whereDate('tanggal_selesai', '>=', $today)
+        ->first();
 
-        if ($exists) {
-            return response()->json(['message' => 'Sudah absen masuk hari ini.'], 422);
-        }
-
-        // Simpan foto
-        $fotoPath = $this->saveFoto($request->foto, 'masuk');
-
-        // Tentukan status absen
-        $shift       = $karyawan->shift;
-        $jamMasuk    = Carbon::now();
-        $batasWaktu  = Carbon::createFromTimeString($shift->jam_masuk)
-            ->addMinutes($shift->toleransi_terlambat);
-        $statusAbsen = $jamMasuk->gt($batasWaktu) ? 'terlambat' : 'tepat_waktu';
-
-        Presensi::create([
-            'karyawan_id' => $karyawan->id,
-            'tanggal'     => $today,
-            'jam_masuk'   => $jamMasuk->format('H:i:s'),
-            'foto_masuk'  => $fotoPath,
-            'latitude'    => $request->latitude,
-            'longitude'   => $request->longitude,
-            'status_absen' => $statusAbsen,
-        ]);
-
-        return response()->json(['message' => 'Absen masuk berhasil!', 'status' => $statusAbsen]);
+    if ($izinAktif) {
+        $jenisLabel = ['izin' => 'Izin', 'sakit' => 'Sakit', 'cuti' => 'Cuti'];
+        $label = $jenisLabel[$izinAktif->jenis] ?? $izinAktif->jenis;
+        return response()->json([
+            'message' => "Kamu sedang dalam status {$label} hari ini, tidak bisa melakukan absensi."
+        ], 422);
     }
+
+    // Cek sudah absen masuk belum
+    $exists = Presensi::where('karyawan_id', $karyawan->id)
+        ->whereDate('tanggal', $today)
+        ->whereNotNull('jam_masuk')
+        ->exists();
+
+    if ($exists) {
+        return response()->json(['message' => 'Sudah absen masuk hari ini.'], 422);
+    }
+
+    // Simpan foto
+    $fotoPath = $this->saveFoto($request->foto, 'masuk');
+
+    // Tentukan status absen
+    $shift       = $karyawan->shift;
+    $jamMasuk = Carbon::now('Asia/Jakarta');
+    $batasWaktu  = Carbon::createFromTimeString($shift->jam_masuk)
+        ->addMinutes($shift->toleransi_terlambat);
+    $statusAbsen = $jamMasuk->gt($batasWaktu) ? 'terlambat' : 'tepat_waktu';
+
+    Presensi::create([
+        'karyawan_id'  => $karyawan->id,
+        'tanggal'      => $today,
+        'jam_masuk'    => $jamMasuk->format('H:i:s'),
+        'foto_masuk'   => $fotoPath,
+        'latitude'     => $request->latitude,
+        'longitude'    => $request->longitude,
+        'status_absen' => $statusAbsen,
+    ]);
+
+    return response()->json(['message' => 'Absen masuk berhasil!', 'status' => $statusAbsen]);
+}
 
     public function absenPulang(Request $request)
     {
@@ -102,7 +117,7 @@ class PresensiController extends Controller
         }
 
         $fotoPath   = $this->saveFoto($request->foto, 'pulang');
-        $jamPulang  = Carbon::now();
+        $jamPulang = Carbon::now('Asia/Jakarta');
         $shift      = $karyawan->shift;
         $jamPulangShift = Carbon::createFromTimeString($shift->jam_pulang);
 
