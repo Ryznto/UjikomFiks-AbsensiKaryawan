@@ -29,7 +29,27 @@
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             Izin & Cuti
         </a>
+        <a href="<?php echo e(route('admin.koreksi-absen.index')); ?>"
+    class="nav-item <?php echo e(request()->routeIs('admin.koreksi-absen.*') ? 'active' : ''); ?>">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+    </svg>
+    Koreksi Absen
+    <?php $pendingKoreksi = \App\Models\KoreksiAbsen::where('status','pending')->count(); ?>
+    <?php if($pendingKoreksi > 0): ?>
+        <span class="nav-badge"><?php echo e($pendingKoreksi); ?></span>
+    <?php endif; ?>
+</a>
+<a href="<?php echo e(route('admin.laporan.index')); ?>"
+    class="nav-item <?php echo e(request()->routeIs('admin.laporan.*') ? 'active' : ''); ?>">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+    </svg>
+    Laporan
+</a>
     </div>
+
+    
 
     <div class="nav-section">
         <div class="nav-label">Master Data</div>

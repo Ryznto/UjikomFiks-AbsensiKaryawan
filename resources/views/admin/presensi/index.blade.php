@@ -67,7 +67,6 @@
                     <option value="">Semua Status</option>
                     <option value="tepat_waktu"  {{ request('status_absen') == 'tepat_waktu'  ? 'selected' : '' }}>Tepat Waktu</option>
                     <option value="terlambat"    {{ request('status_absen') == 'terlambat'    ? 'selected' : '' }}>Terlambat</option>
-                    <option value="pulang_cepat" {{ request('status_absen') == 'pulang_cepat' ? 'selected' : '' }}>Pulang Cepat</option>
                     <option value="alfa"         {{ request('status_absen') == 'alfa'         ? 'selected' : '' }}>Alfa</option>
                 </select>
             </div>
@@ -90,7 +89,8 @@
                     <th>Jam Pulang</th>
                     <th>Lokasi</th>
                     <th>Foto</th>
-                    <th>Status</th>
+                    <th>Status Masuk</th>
+                    <th>Status Pulang</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,7 +108,7 @@
                         </div>
                     </td>
                     <td>{{ $p->karyawan->divisi->nama_divisi }}</td>
-                    <td><span class="badge badge-blue">{{ $p->karyawan->shift->nama_shift }}</span></td>
+                    <td><span class="badge badge-blue">{{ $p->shift->nama_shift ?? $p->karyawan->shift->nama_shift }}</span></td>
                     <td style="font-family: var(--mono); font-size: 12px;">
                         {{ \Carbon\Carbon::parse($p->tanggal)->format('d M Y') }}
                     </td>
@@ -133,20 +133,34 @@
                             <span style="color: var(--mid); font-size: 12px;">—</span>
                         @endif
                     </td>
-                    <td>
+                   <td>
                         @php
-                            $badgeMap = [
-                                'tepat_waktu'  => ['class' => 'badge-green', 'label' => 'Tepat Waktu'],
-                                'terlambat'    => ['class' => 'badge-amber', 'label' => 'Terlambat'],
-                                'pulang_cepat' => ['class' => 'badge-amber', 'label' => 'Pulang Cepat'],
-                                'alfa'         => ['class' => 'badge-red',   'label' => 'Alfa'],
+                            $badgeMasuk = [
+                                'tepat_waktu' => ['class' => 'badge-green', 'label' => 'Tepat Waktu'],
+                                'terlambat'   => ['class' => 'badge-amber', 'label' => 'Terlambat'],
+                                'alfa'        => ['class' => 'badge-red',   'label' => 'Alfa'],
                             ];
-                            $b = $badgeMap[$p->status_absen] ?? ['class' => 'badge-gray', 'label' => '-'];
+                            $bm = $badgeMasuk[$p->status_absen] ?? ['class' => 'badge-gray', 'label' => '-'];
                         @endphp
-                        <span class="badge {{ $b['class'] }}">
-                            <span class="badge-dot"></span>
-                            {{ $b['label'] }}
+                        <span class="badge {{ $bm['class'] }}">
+                            <span class="badge-dot"></span>{{ $bm['label'] }}
                         </span>
+                    </td>
+                    <td>
+                        @if($p->jam_pulang)
+                            @php
+                                $badgePulang = [
+                                    'tepat_waktu'  => ['class' => 'badge-green', 'label' => 'Tepat Waktu'],
+                                    'pulang_cepat' => ['class' => 'badge-amber', 'label' => 'Pulang Cepat'],
+                                ];
+                                $bp = $badgePulang[$p->status_pulang] ?? ['class' => 'badge-gray', 'label' => '-'];
+                            @endphp
+                            <span class="badge {{ $bp['class'] }}">
+                                <span class="badge-dot"></span>{{ $bp['label'] }}
+                            </span>
+                        @else
+                            <span style="color:var(--mid);font-size:12px;">—</span>
+                        @endif
                     </td>
                 </tr>
                 @empty

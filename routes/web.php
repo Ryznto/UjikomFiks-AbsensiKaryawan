@@ -32,6 +32,20 @@ Route::post('karyawan/{karyawan}/reset-password', [App\Http\Controllers\Admin\Ka
     Route::resource('divisi', App\Http\Controllers\Admin\DivisiController::class);
     Route::resource('jabatan', App\Http\Controllers\Admin\JabatanController::class);
     Route::resource('shift', App\Http\Controllers\Admin\ShiftController::class);
+    // koreksi absen
+    Route::get('koreksi-absen', [App\Http\Controllers\Admin\KoreksiAbsenController::class, 'index'])->name('koreksi-absen.index');
+    Route::patch('koreksi-absen/{koreksiAbsen}/approve', [App\Http\Controllers\Admin\KoreksiAbsenController::class, 'approve'])->name('koreksi-absen.approve');
+    Route::patch('koreksi-absen/{koreksiAbsen}/reject', [App\Http\Controllers\Admin\KoreksiAbsenController::class, 'reject'])->name('koreksi-absen.reject');
+
+
+    // Laporan
+    Route::get('laporan', [App\Http\Controllers\Admin\LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('laporan/presensi/excel', [App\Http\Controllers\Admin\LaporanController::class, 'presensiExcel'])->name('laporan.presensi.excel');
+    Route::get('laporan/presensi/pdf', [App\Http\Controllers\Admin\LaporanController::class, 'presensiPdf'])->name('laporan.presensi.pdf');
+    Route::get('laporan/karyawan/excel', [App\Http\Controllers\Admin\LaporanController::class, 'karyawanExcel'])->name('laporan.karyawan.excel');
+    Route::get('laporan/karyawan/pdf', [App\Http\Controllers\Admin\LaporanController::class, 'karyawanPdf'])->name('laporan.karyawan.pdf');
+    Route::get('laporan/izin-cuti/excel', [App\Http\Controllers\Admin\LaporanController::class, 'izinCutiExcel'])->name('laporan.izin-cuti.excel');
+    Route::get('laporan/izin-cuti/pdf', [App\Http\Controllers\Admin\LaporanController::class, 'izinCutiPdf'])->name('laporan.izin-cuti.pdf');
 });
 
 // Karyawan
@@ -43,6 +57,9 @@ Route::prefix('karyawan')->name('karyawan.')->middleware(['auth', 'role.karyawan
     Route::get('izin-cuti', [App\Http\Controllers\Karyawan\IzinCutiController::class, 'index'])->name('izin-cuti.index');
     Route::post('izin-cuti', [App\Http\Controllers\Karyawan\IzinCutiController::class, 'store'])->name('izin-cuti.store');
     Route::get('profil', [App\Http\Controllers\Karyawan\ProfilController::class, 'index'])->name('profil');
-Route::put('profil/password', [App\Http\Controllers\Karyawan\ProfilController::class, 'updatePassword'])->name('profil.password');
-    });
+    Route::put('profil/password', [App\Http\Controllers\Karyawan\ProfilController::class, 'updatePassword'])->name('profil.password');
+    Route::get('koreksi-absen', [App\Http\Controllers\Karyawan\KoreksiAbsenController::class, 'index'])->name('koreksi-absen.index');
+    Route::get('koreksi-absen/create', [App\Http\Controllers\Karyawan\KoreksiAbsenController::class, 'create'])->name('koreksi-absen.create');
+    Route::post('koreksi-absen', [App\Http\Controllers\Karyawan\KoreksiAbsenController::class, 'store'])->name('koreksi-absen.store');
+});
 

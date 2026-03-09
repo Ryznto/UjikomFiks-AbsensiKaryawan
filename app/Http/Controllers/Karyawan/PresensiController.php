@@ -76,22 +76,24 @@ class PresensiController extends Controller
     $fotoPath = $this->saveFoto($request->foto, 'masuk');
 
     // Tentukan status absen
-    $shift       = $karyawan->shift;
-    $jamMasuk = Carbon::now('Asia/Jakarta');
-    $batasWaktu  = Carbon::createFromTimeString($shift->jam_masuk)
-        ->addMinutes($shift->toleransi_terlambat);
-    $statusAbsen = $jamMasuk->gt($batasWaktu) ? 'terlambat' : 'tepat_waktu';
+   $shift       = $karyawan->shift;
+$jamMasuk    = Carbon::now('Asia/Jakarta');
+$batasWaktu  = Carbon::today('Asia/Jakarta')
+    ->setTimeFromTimeString($shift->jam_masuk)
+    ->addMinutes($shift->toleransi_terlambat);
+$statusAbsen = $jamMasuk->gt($batasWaktu) ? 'terlambat' : 'tepat_waktu';
 
-    Presensi::create([
-        'karyawan_id'  => $karyawan->id,
-        'tanggal'      => $today,
-        'jam_masuk'    => $jamMasuk->format('H:i:s'),
-        'foto_masuk'   => $fotoPath,
-        'latitude'     => $request->latitude,
-        'longitude'    => $request->longitude,
-        'status_absen' => $statusAbsen,
-    ]);
-
+Presensi::create([
+    'karyawan_id'  => $karyawan->id,
+    'shift_id'     => $karyawan->shift_id,
+    'tanggal'      => $today,
+    'jam_masuk'    => $jamMasuk->format('H:i:s'),
+    'foto_masuk'   => $fotoPath,
+    'latitude'     => $request->latitude,
+    'longitude'    => $request->longitude,
+    'status_absen' => $statusAbsen,
+]);
+    
     return response()->json(['message' => 'Absen masuk berhasil!', 'status' => $statusAbsen]);
 }
 
@@ -116,21 +118,18 @@ class PresensiController extends Controller
             return response()->json(['message' => 'Belum absen masuk atau sudah absen pulang.'], 422);
         }
 
-        $fotoPath   = $this->saveFoto($request->foto, 'pulang');
-        $jamPulang = Carbon::now('Asia/Jakarta');
-        $shift      = $karyawan->shift;
-        $jamPulangShift = Carbon::createFromTimeString($shift->jam_pulang);
+        $fotoPath       = $this->saveFoto($request->foto, 'pulang');
+$jamPulang      = Carbon::now('Asia/Jakarta');
+$shift          = $karyawan->shift;
+$jamPulangShift = Carbon::today('Asia/Jakarta')
+    ->setTimeFromTimeString($shift->jam_pulang);
+$statusPulang   = $jamPulang->lt($jamPulangShift) ? 'pulang_cepat' : 'tepat_waktu';
 
-        // Cek pulang cepat
-        if ($jamPulang->lt($jamPulangShift)) {
-            $presensi->status_absen = 'pulang_cepat';
-        }
-
-        $presensi->update([
-            'jam_pulang'   => $jamPulang->format('H:i:s'),
-            'foto_pulang'  => $fotoPath,
-            'status_absen' => $presensi->status_absen,
-        ]);
+$presensi->update([
+    'jam_pulang'    => $jamPulang->format('H:i:s'),
+    'foto_pulang'   => $fotoPath,
+    'status_pulang' => $statusPulang,
+]);
 
         return response()->json(['message' => 'Absen pulang berhasil!']);
     }

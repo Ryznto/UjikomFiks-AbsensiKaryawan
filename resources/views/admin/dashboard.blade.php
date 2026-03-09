@@ -72,7 +72,7 @@
                         </div>
                     </td>
                     <td>{{ $p->karyawan->divisi->nama_divisi }}</td>
-                    <td><span class="badge badge-blue">{{ $p->karyawan->shift->nama_shift }}</span></td>
+                    <td><span class="badge badge-blue">{{ $p->shift->nama_shift ?? $p->karyawan->shift->nama_shift }}</span></td>
                     <td style="font-family: var(--mono); color: var(--green)">{{ $p->jam_masuk ?? '—' }}</td>
                     <td style="font-family: var(--mono); color: var(--mid)">{{ $p->jam_pulang ?? '—' }}</td>
                     <td>

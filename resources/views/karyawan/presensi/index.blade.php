@@ -88,6 +88,12 @@
     </div>
 </div>
 
+<div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+    <a href="{{ route('karyawan.koreksi-absen.create') }}" class="btn btn-secondary btn-inline">
+        ✏️ Ajukan Koreksi Absen
+    </a>
+</div>
+
 {{-- RIWAYAT --}}
 <div class="card fade-in">
     <div class="card-header">
@@ -121,50 +127,66 @@
     </div>
 
     <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Tanggal</th>
-                    <th>Masuk</th>
-                    <th>Pulang</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($riwayat as $p)
-                <tr>
-                    <td style="font-family:var(--mono);font-size:11px;">
-                        {{ \Carbon\Carbon::parse($p->tanggal)->format('d M Y') }}
-                    </td>
-                    <td style="font-family:var(--mono);color:var(--green);font-size:12px;">
-                        {{ $p->jam_masuk ?? '—' }}
-                    </td>
-                    <td style="font-family:var(--mono);color:var(--amber);font-size:12px;">
-                        {{ $p->jam_pulang ?? '—' }}
-                    </td>
-                    <td>
-                        @php
-                            $badgeMap = [
-                                'tepat_waktu'  => ['class' => 'badge-green', 'label' => 'Tepat'],
-                                'terlambat'    => ['class' => 'badge-amber', 'label' => 'Lambat'],
-                                'pulang_cepat' => ['class' => 'badge-amber', 'label' => 'P.Cepat'],
-                                'alfa'         => ['class' => 'badge-red',   'label' => 'Alfa'],
-                            ];
-                            $b = $badgeMap[$p->status_absen] ?? ['class' => 'badge-gray', 'label' => '-'];
-                        @endphp
-                        <span class="badge {{ $b['class'] }}" style="font-size:10px;padding:2px 7px;">
-                            {{ $b['label'] }}
-                        </span>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="4">
-                        <div class="empty-state"><p>Belum ada riwayat presensi</p></div>
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
+          <table>
+          <thead>
+    <tr>
+        <th>Tanggal</th>
+        <th>Masuk</th>
+        <th>Pulang</th>
+        <th>Status Masuk</th>
+        <th>Status Pulang</th>
+    </tr>
+</thead>
+<tbody>
+    @forelse($riwayat as $p)
+    <tr>
+        <td style="font-family:var(--mono);font-size:11px;">
+            {{ \Carbon\Carbon::parse($p->tanggal)->format('d M Y') }}
+        </td>
+        <td style="font-family:var(--mono);color:var(--green);font-size:12px;">
+            {{ $p->jam_masuk ?? '—' }}
+        </td>
+        <td style="font-family:var(--mono);color:var(--amber);font-size:12px;">
+            {{ $p->jam_pulang ?? '—' }}
+        </td>
+        <td>
+            @php
+                $badgeMasuk = [
+                    'tepat_waktu' => ['class' => 'badge-green', 'label' => 'Tepat'],
+                    'terlambat'   => ['class' => 'badge-amber', 'label' => 'Lambat'],
+                    'alfa'        => ['class' => 'badge-red',   'label' => 'Alfa'],
+                ];
+                $bm = $badgeMasuk[$p->status_absen] ?? ['class' => 'badge-gray', 'label' => '-'];
+            @endphp
+            <span class="badge {{ $bm['class'] }}" style="font-size:10px;padding:2px 7px;">
+                {{ $bm['label'] }}
+            </span>
+        </td>
+        <td>
+            @if($p->jam_pulang)
+                @php
+                    $badgePulang = [
+                        'tepat_waktu'  => ['class' => 'badge-green', 'label' => 'Tepat'],
+                        'pulang_cepat' => ['class' => 'badge-amber', 'label' => 'P.Cepat'],
+                    ];
+                    $bp = $badgePulang[$p->status_pulang] ?? ['class' => 'badge-gray', 'label' => '-'];
+                @endphp
+                <span class="badge {{ $bp['class'] }}" style="font-size:10px;padding:2px 7px;">
+                    {{ $bp['label'] }}
+                </span>
+            @else
+                <span style="color:var(--mid);font-size:12px;">—</span>
+            @endif
+        </td>
+    </tr>
+    @empty
+    <tr>
+        <td colspan="5">
+            <div class="empty-state"><p>Belum ada riwayat presensi</p></div>
+        </td>
+    </tr>
+    @endforelse
+</tbody>
         </table>
     </div>
     @if($riwayat->hasPages())

@@ -73,7 +73,7 @@
                         </div>
                     </td>
                     <td><?php echo e($p->karyawan->divisi->nama_divisi); ?></td>
-                    <td><span class="badge badge-blue"><?php echo e($p->karyawan->shift->nama_shift); ?></span></td>
+                    <td><span class="badge badge-blue"><?php echo e($p->shift->nama_shift ?? $p->karyawan->shift->nama_shift); ?></span></td>
                     <td style="font-family: var(--mono); color: var(--green)"><?php echo e($p->jam_masuk ?? '—'); ?></td>
                     <td style="font-family: var(--mono); color: var(--mid)"><?php echo e($p->jam_pulang ?? '—'); ?></td>
                     <td>

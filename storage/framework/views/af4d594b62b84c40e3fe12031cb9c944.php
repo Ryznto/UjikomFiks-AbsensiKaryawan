@@ -68,7 +68,6 @@
                     <option value="">Semua Status</option>
                     <option value="tepat_waktu"  <?php echo e(request('status_absen') == 'tepat_waktu'  ? 'selected' : ''); ?>>Tepat Waktu</option>
                     <option value="terlambat"    <?php echo e(request('status_absen') == 'terlambat'    ? 'selected' : ''); ?>>Terlambat</option>
-                    <option value="pulang_cepat" <?php echo e(request('status_absen') == 'pulang_cepat' ? 'selected' : ''); ?>>Pulang Cepat</option>
                     <option value="alfa"         <?php echo e(request('status_absen') == 'alfa'         ? 'selected' : ''); ?>>Alfa</option>
                 </select>
             </div>
@@ -91,7 +90,8 @@
                     <th>Jam Pulang</th>
                     <th>Lokasi</th>
                     <th>Foto</th>
-                    <th>Status</th>
+                    <th>Status Masuk</th>
+                    <th>Status Pulang</th>
                 </tr>
             </thead>
             <tbody>
@@ -110,7 +110,7 @@
                         </div>
                     </td>
                     <td><?php echo e($p->karyawan->divisi->nama_divisi); ?></td>
-                    <td><span class="badge badge-blue"><?php echo e($p->karyawan->shift->nama_shift); ?></span></td>
+                    <td><span class="badge badge-blue"><?php echo e($p->shift->nama_shift ?? $p->karyawan->shift->nama_shift); ?></span></td>
                     <td style="font-family: var(--mono); font-size: 12px;">
                         <?php echo e(\Carbon\Carbon::parse($p->tanggal)->format('d M Y')); ?>
 
@@ -138,21 +138,36 @@
                             <span style="color: var(--mid); font-size: 12px;">—</span>
                         <?php endif; ?>
                     </td>
-                    <td>
+                   <td>
                         <?php
-                            $badgeMap = [
-                                'tepat_waktu'  => ['class' => 'badge-green', 'label' => 'Tepat Waktu'],
-                                'terlambat'    => ['class' => 'badge-amber', 'label' => 'Terlambat'],
-                                'pulang_cepat' => ['class' => 'badge-amber', 'label' => 'Pulang Cepat'],
-                                'alfa'         => ['class' => 'badge-red',   'label' => 'Alfa'],
+                            $badgeMasuk = [
+                                'tepat_waktu' => ['class' => 'badge-green', 'label' => 'Tepat Waktu'],
+                                'terlambat'   => ['class' => 'badge-amber', 'label' => 'Terlambat'],
+                                'alfa'        => ['class' => 'badge-red',   'label' => 'Alfa'],
                             ];
-                            $b = $badgeMap[$p->status_absen] ?? ['class' => 'badge-gray', 'label' => '-'];
+                            $bm = $badgeMasuk[$p->status_absen] ?? ['class' => 'badge-gray', 'label' => '-'];
                         ?>
-                        <span class="badge <?php echo e($b['class']); ?>">
-                            <span class="badge-dot"></span>
-                            <?php echo e($b['label']); ?>
+                        <span class="badge <?php echo e($bm['class']); ?>">
+                            <span class="badge-dot"></span><?php echo e($bm['label']); ?>
 
                         </span>
+                    </td>
+                    <td>
+                        <?php if($p->jam_pulang): ?>
+                            <?php
+                                $badgePulang = [
+                                    'tepat_waktu'  => ['class' => 'badge-green', 'label' => 'Tepat Waktu'],
+                                    'pulang_cepat' => ['class' => 'badge-amber', 'label' => 'Pulang Cepat'],
+                                ];
+                                $bp = $badgePulang[$p->status_pulang] ?? ['class' => 'badge-gray', 'label' => '-'];
+                            ?>
+                            <span class="badge <?php echo e($bp['class']); ?>">
+                                <span class="badge-dot"></span><?php echo e($bp['label']); ?>
+
+                            </span>
+                        <?php else: ?>
+                            <span style="color:var(--mid);font-size:12px;">—</span>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

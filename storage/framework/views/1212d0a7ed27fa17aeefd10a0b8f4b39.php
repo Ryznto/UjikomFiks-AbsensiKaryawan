@@ -92,6 +92,12 @@
     </div>
 </div>
 
+<div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+    <a href="<?php echo e(route('karyawan.koreksi-absen.create')); ?>" class="btn btn-secondary btn-inline">
+        ✏️ Ajukan Koreksi Absen
+    </a>
+</div>
+
 
 <div class="card fade-in">
     <div class="card-header">
@@ -127,54 +133,71 @@
     </div>
 
     <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Tanggal</th>
-                    <th>Masuk</th>
-                    <th>Pulang</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $__empty_1 = true; $__currentLoopData = $riwayat; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                <tr>
-                    <td style="font-family:var(--mono);font-size:11px;">
-                        <?php echo e(\Carbon\Carbon::parse($p->tanggal)->format('d M Y')); ?>
+          <table>
+          <thead>
+    <tr>
+        <th>Tanggal</th>
+        <th>Masuk</th>
+        <th>Pulang</th>
+        <th>Status Masuk</th>
+        <th>Status Pulang</th>
+    </tr>
+</thead>
+<tbody>
+    <?php $__empty_1 = true; $__currentLoopData = $riwayat; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+    <tr>
+        <td style="font-family:var(--mono);font-size:11px;">
+            <?php echo e(\Carbon\Carbon::parse($p->tanggal)->format('d M Y')); ?>
 
-                    </td>
-                    <td style="font-family:var(--mono);color:var(--green);font-size:12px;">
-                        <?php echo e($p->jam_masuk ?? '—'); ?>
+        </td>
+        <td style="font-family:var(--mono);color:var(--green);font-size:12px;">
+            <?php echo e($p->jam_masuk ?? '—'); ?>
 
-                    </td>
-                    <td style="font-family:var(--mono);color:var(--amber);font-size:12px;">
-                        <?php echo e($p->jam_pulang ?? '—'); ?>
+        </td>
+        <td style="font-family:var(--mono);color:var(--amber);font-size:12px;">
+            <?php echo e($p->jam_pulang ?? '—'); ?>
 
-                    </td>
-                    <td>
-                        <?php
-                            $badgeMap = [
-                                'tepat_waktu'  => ['class' => 'badge-green', 'label' => 'Tepat'],
-                                'terlambat'    => ['class' => 'badge-amber', 'label' => 'Lambat'],
-                                'pulang_cepat' => ['class' => 'badge-amber', 'label' => 'P.Cepat'],
-                                'alfa'         => ['class' => 'badge-red',   'label' => 'Alfa'],
-                            ];
-                            $b = $badgeMap[$p->status_absen] ?? ['class' => 'badge-gray', 'label' => '-'];
-                        ?>
-                        <span class="badge <?php echo e($b['class']); ?>" style="font-size:10px;padding:2px 7px;">
-                            <?php echo e($b['label']); ?>
+        </td>
+        <td>
+            <?php
+                $badgeMasuk = [
+                    'tepat_waktu' => ['class' => 'badge-green', 'label' => 'Tepat'],
+                    'terlambat'   => ['class' => 'badge-amber', 'label' => 'Lambat'],
+                    'alfa'        => ['class' => 'badge-red',   'label' => 'Alfa'],
+                ];
+                $bm = $badgeMasuk[$p->status_absen] ?? ['class' => 'badge-gray', 'label' => '-'];
+            ?>
+            <span class="badge <?php echo e($bm['class']); ?>" style="font-size:10px;padding:2px 7px;">
+                <?php echo e($bm['label']); ?>
 
-                        </span>
-                    </td>
-                </tr>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                <tr>
-                    <td colspan="4">
-                        <div class="empty-state"><p>Belum ada riwayat presensi</p></div>
-                    </td>
-                </tr>
-                <?php endif; ?>
-            </tbody>
+            </span>
+        </td>
+        <td>
+            <?php if($p->jam_pulang): ?>
+                <?php
+                    $badgePulang = [
+                        'tepat_waktu'  => ['class' => 'badge-green', 'label' => 'Tepat'],
+                        'pulang_cepat' => ['class' => 'badge-amber', 'label' => 'P.Cepat'],
+                    ];
+                    $bp = $badgePulang[$p->status_pulang] ?? ['class' => 'badge-gray', 'label' => '-'];
+                ?>
+                <span class="badge <?php echo e($bp['class']); ?>" style="font-size:10px;padding:2px 7px;">
+                    <?php echo e($bp['label']); ?>
+
+                </span>
+            <?php else: ?>
+                <span style="color:var(--mid);font-size:12px;">—</span>
+            <?php endif; ?>
+        </td>
+    </tr>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+    <tr>
+        <td colspan="5">
+            <div class="empty-state"><p>Belum ada riwayat presensi</p></div>
+        </td>
+    </tr>
+    <?php endif; ?>
+</tbody>
         </table>
     </div>
     <?php if($riwayat->hasPages()): ?>
