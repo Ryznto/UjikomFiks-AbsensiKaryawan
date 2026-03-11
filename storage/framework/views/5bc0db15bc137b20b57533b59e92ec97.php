@@ -118,7 +118,7 @@
                     </td>
                     <td>
                         <a href="<?php echo e(route('admin.assessments.show', $assessment)); ?>"
-                            class="btn-icon" title="Detail">detail</a>
+                            class="btn-icon" title="Detail">👁️detail</a>
                     </td>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

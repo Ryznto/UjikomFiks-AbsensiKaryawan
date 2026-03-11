@@ -7,8 +7,9 @@
 
 <div style="margin-bottom:20px;">
     <a href="<?php echo e(route('karyawan.assessments.my-report')); ?>"
-        style="color:var(--mid); text-decoration:none; font-size:0.875rem;">
-        ← Kembali ke Rapor
+        style="display:inline-flex; align-items:center; gap:8px; padding:10px 20px; background:linear-gradient(135deg,#1e1e2e,#2d2d44); color:white; text-decoration:none; border-radius:12px; font-size:0.85rem; font-weight:600; box-shadow:0 4px 12px rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); margin-bottom:20px;">
+        <span style="font-size:1rem;">←</span>
+        <span>Kembali ke Rapor</span>
     </a>
     <div style="font-size:20px; font-weight:800; letter-spacing:-0.5px; margin-top:8px;">
         📋 Detail Penilaian
@@ -21,12 +22,12 @@
 
 
 <div class="card fade-in" style="margin-bottom:16px; text-align:center;">
-    <div class="card-body" style="padding:24px;">
-        <div style="font-size:12px; color:var(--mid); margin-bottom:8px;">Rata-rata Nilai</div>
-        <div style="font-size:48px; font-weight:800; font-family:var(--mono); color:#4f7cff; letter-spacing:-2px; line-height:1;">
+    <div style="padding:24px;">
+        <div style="font-size:12px; color:var(--mid); margin-bottom:8px; letter-spacing:1px; text-transform:uppercase;">Rata-rata Nilai</div>
+        <div style="font-size:56px; font-weight:800; font-family:var(--mono); color:#4f7cff; letter-spacing:-2px; line-height:1;">
             <?php echo e(number_format($assessment->average_score, 1)); ?>
 
-            <span style="font-size:20px; color:var(--mid);">/5</span>
+            <span style="font-size:22px; color:var(--mid);">/5</span>
         </div>
         <div style="margin-top:12px;">
             <span class="badge badge-<?php echo e($assessment->score_badge); ?>" style="font-size:0.9rem; padding:6px 16px;">
@@ -34,14 +35,14 @@
 
             </span>
         </div>
-        <div style="margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left;">
-            <div style="background:#f9fafb; padding:12px; border-radius:8px;">
-                <div style="font-size:0.75rem; color:var(--mid);">Tanggal</div>
-                <div style="font-weight:600; font-size:0.875rem;"><?php echo e($assessment->assessment_date->format('d M Y')); ?></div>
+        <div style="margin-top:20px; display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left;">
+            <div style="background:linear-gradient(135deg,#1e1e2e,#2d2d44); padding:14px; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
+                <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px;">Tanggal</div>
+                <div style="font-weight:600; font-size:0.875rem; color:white;"><?php echo e($assessment->assessment_date->format('d M Y')); ?></div>
             </div>
-            <div style="background:#f9fafb; padding:12px; border-radius:8px;">
-                <div style="font-size:0.75rem; color:var(--mid);">Dinilai oleh</div>
-                <div style="font-weight:600; font-size:0.875rem;"><?php echo e($assessment->evaluator->adminProfile->nama_admin ?? '-'); ?></div>
+            <div style="background:linear-gradient(135deg,#1e1e2e,#2d2d44); padding:14px; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
+                <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px;">Dinilai oleh</div>
+                <div style="font-weight:600; font-size:0.875rem; color:white;"><?php echo e($assessment->evaluator->adminProfile->nama_admin ?? '-'); ?></div>
             </div>
         </div>
     </div>
@@ -74,7 +75,6 @@
         <?php $__currentLoopData = $assessment->details->groupBy('statement.category.name'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categoryName => $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <?php $avgCat = round($details->avg('score'), 1); ?>
         <div style="border:1px solid #e5e7eb; border-radius:12px; overflow:hidden;">
-            
             <div onclick="toggleAccordion(<?php echo e($loop->index); ?>)"
                 style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; cursor:pointer; background:#1e1e2e; color:white;">
                 <div style="font-weight:700; color:white;"><?php echo e($categoryName); ?></div>
@@ -88,8 +88,6 @@
                     <span id="arrow-<?php echo e($loop->index); ?>" style="color:white; transition:transform 0.3s;">▼</span>
                 </div>
             </div>
-
-            
             <div id="accordion-<?php echo e($loop->index); ?>" style="display:none; padding:12px 16px; flex-direction:column; gap:12px;">
                 <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div>
@@ -120,9 +118,9 @@
 
 <?php if($assessment->general_notes): ?>
 <div class="card fade-in">
-    <div style="background:#eff0f1; border-radius:12px; padding:16px; margin:16px;">
-        <div style="font-weight:600; margin-bottom:8px; color:#131328;">💬 Catatan dari Penilai</div>
-        <p style="margin:0; line-height:1.7; font-size:0.9rem; color:#1a1a2e;"><?php echo e($assessment->general_notes); ?></p>
+    <div style="background:linear-gradient(135deg,#1e1e2e,#2d2d44); border-radius:12px; padding:16px; margin:16px; border:1px solid rgba(255,255,255,0.08);">
+        <div style="font-weight:600; margin-bottom:8px; color:white;">💬 Catatan dari Penilai</div>
+        <p style="margin:0; line-height:1.7; font-size:0.9rem; color:rgba(255,255,255,0.7);"><?php echo e($assessment->general_notes); ?></p>
     </div>
 </div>
 <?php endif; ?>
@@ -140,7 +138,7 @@ new Chart(document.getElementById('radarChart').getContext('2d'), {
         datasets: [{
             label: 'Nilai Saya',
             data: <?php echo json_encode($radarScores, 15, 512) ?>,
-            backgroundColor: 'rgba(79,124,255,0.15)',
+            backgroundColor: 'rgba(79,124,255,0.25)',
             borderColor: '#4f7cff',
             borderWidth: 2,
             pointBackgroundColor: '#4f7cff',
@@ -154,8 +152,19 @@ new Chart(document.getElementById('radarChart').getContext('2d'), {
         scales: {
             r: {
                 min: 0, max: 5,
-                ticks: { stepSize:1, callback: v => v+'★', font:{ size:10 } },
-                pointLabels: { font:{ size:11, weight:'bold' } },
+                grid: { color: 'rgba(255,255,255,0.5)' },
+                angleLines: { color: 'rgba(255,255,255,0.5)' },
+                ticks: {
+                    stepSize: 1,
+                    callback: v => v+'★',
+                    font: { size:10 },
+                    color: 'white',
+                    backdropColor: 'transparent'
+                },
+                pointLabels: {
+                    font: { size:11, weight:'bold' },
+                    color: 'white'
+                },
             }
         }
     }
