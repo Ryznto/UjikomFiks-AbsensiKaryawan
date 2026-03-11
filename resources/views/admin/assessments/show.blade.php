@@ -7,8 +7,9 @@
 @section('content')
 
 <a href="{{ route('admin.assessments.report') }}"
-    style="display:inline-flex; align-items:center; gap:6px; margin-bottom:20px; color:var(--mid); text-decoration:none;">
-    ← Kembali ke Laporan
+    style="display:inline-flex; align-items:center; gap:8px; padding:10px 20px; background:linear-gradient(135deg,#1e1e2e,#2d2d44); color:white; text-decoration:none; border-radius:12px; font-size:0.85rem; font-weight:600; box-shadow:0 4px 12px rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); margin-bottom:20px;">
+    <span>←</span>
+    <span>Kembali ke Laporan</span>
 </a>
 
 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
@@ -28,20 +29,20 @@
                     {{ $assessment->evaluatee->divisi->nama_divisi ?? '-' }}
                 </div>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left;">
-                    <div style="background:#f9fafb; padding:12px; border-radius:8px;">
-                        <div style="font-size:0.75rem; color:var(--mid);">Periode</div>
-                        <div style="font-weight:600;">{{ $assessment->period }}</div>
+                    <div style="background:linear-gradient(135deg,#1e1e2e,#2d2d44); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+                        <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.5px;">Periode</div>
+                        <div style="font-weight:600; color:white;">{{ $assessment->period }}</div>
                     </div>
-                    <div style="background:#f9fafb; padding:12px; border-radius:8px;">
-                        <div style="font-size:0.75rem; color:var(--mid);">Tanggal</div>
-                        <div style="font-weight:600;">{{ $assessment->assessment_date->format('d M Y') }}</div>
+                    <div style="background:linear-gradient(135deg,#1e1e2e,#2d2d44); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+                        <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.5px;">Tanggal</div>
+                        <div style="font-weight:600; color:white;">{{ $assessment->assessment_date->format('d M Y') }}</div>
                     </div>
-                    <div style="background:#f9fafb; padding:12px; border-radius:8px;">
-                        <div style="font-size:0.75rem; color:var(--mid);">Penilai</div>
-                        <div style="font-weight:600;">{{ $assessment->evaluator->adminProfile->nama_admin ?? '-' }}</div>
+                    <div style="background:linear-gradient(135deg,#1e1e2e,#2d2d44); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+                        <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.5px;">Penilai</div>
+                        <div style="font-weight:600; color:white;">{{ $assessment->evaluator->adminProfile->nama_admin ?? '-' }}</div>
                     </div>
-                    <div style="background:#f9fafb; padding:12px; border-radius:8px;">
-                        <div style="font-size:0.75rem; color:var(--mid);">Rata-rata</div>
+                    <div style="background:linear-gradient(135deg,#1e1e2e,#2d2d44); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+                        <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.5px;">Rata-rata</div>
                         <div style="font-weight:700; color:#4f7cff; font-size:1.2rem;">
                             {{ number_format($assessment->average_score, 2) }}/5
                         </div>
@@ -76,7 +77,7 @@
     {{-- Kolom Kanan --}}
     <div style="display:flex; flex-direction:column; gap:20px;">
 
-        {{-- Detail Per Kategori --}}
+        {{-- Detail Per Kategori (Accordion) --}}
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
@@ -84,26 +85,44 @@
                     Detail Nilai Per Indikator
                 </div>
             </div>
-            <div style="padding:20px; display:flex; flex-direction:column; gap:16px;">
-                @foreach($assessment->details as $detail)
-                <div>
-                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                    <span style="font-weight:600;">{{ $detail->statement->statement ?? '-' }}</span>
-                        <span style="font-weight:700; color:#4f7cff;">{{ number_format($detail->score, 1) }}/5</span>
+            <div style="padding:12px 16px; display:flex; flex-direction:column; gap:8px;">
+                @foreach($assessment->details->groupBy('statement.category.name') as $categoryName => $details)
+                @php $avgCat = round($details->avg('score'), 1); @endphp
+                <div style="border:1px solid #e5e7eb; border-radius:12px; overflow:hidden;">
+                    <div onclick="toggleAccordion({{ $loop->index }})"
+                        style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; cursor:pointer; background:#1e1e2e; color:white;">
+                        <div style="font-weight:700; color:white;">{{ $categoryName }}</div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div>
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span style="color:{{ $i <= $avgCat ? '#fbbf24' : '#555' }}">★</span>
+                                @endfor
+                            </div>
+                            <span style="font-weight:700; color:#4f7cff; font-size:0.9rem;">{{ $avgCat }}/5</span>
+                            <span id="arrow-{{ $loop->index }}" style="color:white; transition:transform 0.3s;">▼</span>
+                        </div>
                     </div>
-                    {{-- Bintang --}}
-                    <div style="margin-bottom:6px;">
-                        @for($i = 1; $i <= 5; $i++)
-                            <span style="font-size:1.2rem; color:{{ $i <= $detail->score ? '#fbbf24' : '#e5e7eb' }}">★</span>
-                        @endfor
-                    </div>
-                    {{-- Progress Bar --}}
-                    <div style="background:#f0f0f0; border-radius:99px; height:8px;">
-                        @php
-                            $pct = ($detail->score / 5) * 100;
-                            $color = $detail->score >= 4 ? '#22c55e' : ($detail->score >= 3 ? '#4f7cff' : ($detail->score >= 2 ? '#fbbf24' : '#ef4444'));
-                        @endphp
-                        <div style="width:{{ $pct }}%; background:{{ $color }}; height:100%; border-radius:99px; transition:width 1s ease;"></div>
+                    <div id="accordion-{{ $loop->index }}" style="display:none; padding:12px 16px; flex-direction:column; gap:12px;">
+                        @foreach($details as $detail)
+                        <div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                                <span style="font-size:0.85rem;">{{ $detail->statement->statement ?? '-' }}</span>
+                                <span style="font-weight:700; color:#4f7cff; font-size:0.85rem; white-space:nowrap; margin-left:8px;">{{ number_format($detail->score, 1) }}/5</span>
+                            </div>
+                            <div>
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span style="font-size:0.9rem; color:{{ $i <= $detail->score ? '#fbbf24' : '#e5e7eb' }}">★</span>
+                                @endfor
+                            </div>
+                            @php
+                                $pct = ($detail->score / 5) * 100;
+                                $color = $detail->score >= 4 ? '#22c55e' : ($detail->score >= 3 ? '#4f7cff' : ($detail->score >= 2 ? '#fbbf24' : '#ef4444'));
+                            @endphp
+                            <div style="background:#f0f0f0; border-radius:99px; height:6px; margin-top:4px;">
+                                <div style="width:{{ $pct }}%; background:{{ $color }}; height:100%; border-radius:99px;"></div>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
                 @endforeach
@@ -119,8 +138,8 @@
                     Catatan Penilai
                 </div>
             </div>
-            <div style="padding:20px;">
-                <p style="line-height:1.7; color:var(--dark); margin:0;">{{ $assessment->general_notes }}</p>
+            <div style="background:linear-gradient(135deg,#1e1e2e,#2d2d44); border-radius:12px; padding:16px; margin:16px; border:1px solid rgba(255,255,255,0.08);">
+                <p style="line-height:1.7; color:rgba(255,255,255,0.8); margin:0;">{{ $assessment->general_notes }}</p>
             </div>
         </div>
         @endif
@@ -141,7 +160,7 @@ new Chart(document.getElementById('radarChart').getContext('2d'), {
         datasets: [{
             label: 'Nilai',
             data: @json($radarScores),
-            backgroundColor: 'rgba(79,124,255,0.15)',
+            backgroundColor: 'rgba(79,124,255,0.25)',
             borderColor: '#4f7cff',
             borderWidth: 2,
             pointBackgroundColor: '#4f7cff',
@@ -155,12 +174,35 @@ new Chart(document.getElementById('radarChart').getContext('2d'), {
         scales: {
             r: {
                 min: 0, max: 5,
-                ticks: { stepSize: 1, callback: v => v + ' ★', font: { size: 10 } },
-                pointLabels: { font: { size: 11, weight: 'bold' } },
+                grid: { color: 'rgba(255,255,255,0.5)' },
+                angleLines: { color: 'rgba(255,255,255,0.5)' },
+                ticks: {
+                    stepSize: 1,
+                    callback: v => v+'★',
+                    font: { size:10 },
+                    color: 'white',
+                    backdropColor: 'transparent'
+                },
+                pointLabels: {
+                    font: { size:11, weight:'bold' },
+                    color: 'white'
+                },
             }
         }
     }
 });
 @endif
+
+function toggleAccordion(index) {
+    const content = document.getElementById(`accordion-${index}`);
+    const arrow   = document.getElementById(`arrow-${index}`);
+    if (content.style.display === 'none' || content.style.display === '') {
+        content.style.display = 'flex';
+        arrow.style.transform = 'rotate(180deg)';
+    } else {
+        content.style.display = 'none';
+        arrow.style.transform = 'rotate(0deg)';
+    }
+}
 </script>
 @endpush

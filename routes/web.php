@@ -56,6 +56,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role.admin'])->grou
     Route::patch('assessment-categories/{assessmentCategory}/toggle', [App\Http\Controllers\Admin\AssessmentCategoryController::class, 'toggleStatus'])->name('assessment-categories.toggle');
     Route::delete('assessment-categories/{assessmentCategory}', [App\Http\Controllers\Admin\AssessmentCategoryController::class, 'destroy'])->name('assessment-categories.destroy');
 
+    // ── Pernyataan per Kategori ───────────────────────
+    Route::post('assessment-categories/{assessmentCategory}/statements', [App\Http\Controllers\Admin\AssessmentStatementController::class, 'store'])->name('assessment-statements.store');
+    Route::put('assessment-statements/{assessmentStatement}', [App\Http\Controllers\Admin\AssessmentStatementController::class, 'update'])->name('assessment-statements.update');
+    Route::delete('assessment-statements/{assessmentStatement}', [App\Http\Controllers\Admin\AssessmentStatementController::class, 'destroy'])->name('assessment-statements.destroy');
+
     // ── Penilaian ─────────────────────────────────────
     Route::get('assessments', [App\Http\Controllers\Admin\AssessmentController::class, 'index'])->name('assessments.index');
     Route::get('assessments/report', [App\Http\Controllers\Admin\AssessmentController::class, 'report'])->name('assessments.report');

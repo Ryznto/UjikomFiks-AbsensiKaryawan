@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\AssessmentDetail;
 use App\Models\AssessmentStatement;
 
 class AssessmentCategory extends Model
@@ -27,11 +26,6 @@ class AssessmentCategory extends Model
     public function statements()
     {
         return $this->hasMany(AssessmentStatement::class, 'category_id')->orderBy('order');
-    }
-
-    public function assessmentDetails()
-    {
-        return $this->hasMany(AssessmentDetail::class, 'category_id');
     }
 
     public function scopeActive($query)

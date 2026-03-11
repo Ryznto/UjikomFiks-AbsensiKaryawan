@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class AssessmentController extends Controller
 {
-    // Dashboard penilai - list semua karyawan
     public function index(Request $request)
     {
         $period = $request->get('period', now()->format('F Y'));
@@ -40,12 +39,10 @@ class AssessmentController extends Controller
         ));
     }
 
-    // Form penilaian per karyawan
     public function create(Request $request, Karyawan $karyawan)
     {
         $period = $request->get('period', now()->format('F Y'));
 
-        // Ambil kategori beserta pernyataan-pernyataannya
         $categories = AssessmentCategory::active()
             ->forEmployee()
             ->with(['statements' => function($q) {
@@ -53,7 +50,6 @@ class AssessmentController extends Controller
             }])
             ->get();
 
-        // Cek apakah sudah pernah dinilai
         $existingAssessment = Assessment::where('evaluator_id', Auth::id())
             ->where('evaluatee_id', $karyawan->id)
             ->where('period', $period)
@@ -65,7 +61,6 @@ class AssessmentController extends Controller
         ));
     }
 
-    // Simpan penilaian
     public function store(Request $request)
     {
         $request->validate([
@@ -91,7 +86,6 @@ class AssessmentController extends Controller
                 ]
             );
 
-            // Simpan nilai per pernyataan
             foreach ($request->scores as $statementId => $score) {
                 AssessmentDetail::updateOrCreate(
                     [
@@ -106,6 +100,29 @@ class AssessmentController extends Controller
 
             DB::commit();
 
+            // Simpan & Lanjut
+            if ($request->action === 'save_next') {
+                $nextKaryawan = Karyawan::where('status_aktif', true)
+                    ->whereNotIn('id', function($q) use ($request) {
+                        $q->select('evaluatee_id')
+                          ->from('assessments')
+                          ->where('evaluator_id', Auth::id())
+                          ->where('period', $request->period);
+                    })
+                    ->orderBy('nama')
+                    ->first();
+
+                if ($nextKaryawan) {
+                    return redirect()
+                        ->route('admin.assessments.create', [$nextKaryawan->id, 'period' => $request->period])
+                        ->with('success', 'Tersimpan! Lanjut menilai ' . $nextKaryawan->nama . '.');
+                }
+
+                return redirect()
+                    ->route('admin.assessments.index', ['period' => $request->period])
+                    ->with('success', '🎉 Semua karyawan sudah dinilai!');
+            }
+
             return redirect()
                 ->route('admin.assessments.index', ['period' => $request->period])
                 ->with('success', 'Penilaian berhasil disimpan!');
@@ -116,7 +133,6 @@ class AssessmentController extends Controller
         }
     }
 
-    // Laporan semua karyawan
     public function report(Request $request)
     {
         $period = $request->get('period', now()->format('F Y'));
@@ -133,12 +149,10 @@ class AssessmentController extends Controller
         return view('admin.assessments.report', compact('assessments', 'period', 'stats'));
     }
 
-    // Detail satu assessment
     public function show(Assessment $assessment)
     {
         $assessment->load(['evaluator', 'evaluatee.user', 'details.statement.category']);
 
-        // Group detail per kategori untuk radar chart
         $radarLabels = [];
         $radarScores = [];
 

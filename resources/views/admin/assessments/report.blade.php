@@ -84,7 +84,7 @@
                     </td>
                     <td>{{ $assessment->evaluatee->jabatan->nama_jabatan ?? '-' }}</td>
                     <td>{{ $assessment->evaluator->adminProfile->nama_admin ?? '-' }}</td>
-                    <td>{{ $assessment->assessment_date->format('d M Y') }}</td>
+                    <td style="font-size:0.85rem;">{{ $assessment->assessment_date->format('d M Y') }}</td>
                     <td>
                         <div style="display:flex; align-items:center; gap:6px;">
                             <span style="font-size:1.2rem; font-weight:700; color:#4f7cff;">
@@ -92,7 +92,6 @@
                             </span>
                             <span style="color:var(--mid); font-size:0.8rem;">/5</span>
                         </div>
-                        {{-- Bintang --}}
                         <div style="font-size:0.75rem; line-height:1;">
                             @for($i = 1; $i <= 5; $i++)
                                 <span style="color: {{ $i <= round($assessment->average_score) ? '#fbbf24' : '#e5e7eb' }}">★</span>
@@ -102,11 +101,11 @@
                     <td>
                         @php
                             $badgeMap = [
-                                'Sangat Baik'    => 'badge-green',
-                                'Baik'           => 'badge-blue',
-                                'Cukup'          => 'badge-amber',
-                                'Kurang'         => 'badge-red',
-                                'Sangat Kurang'  => 'badge-red',
+                                'Sangat Baik'   => 'badge-green',
+                                'Baik'          => 'badge-blue',
+                                'Cukup'         => 'badge-amber',
+                                'Kurang'        => 'badge-red',
+                                'Sangat Kurang' => 'badge-red',
                             ];
                         @endphp
                         <span class="badge {{ $badgeMap[$assessment->score_label] ?? 'badge-gray' }}">
@@ -115,7 +114,9 @@
                     </td>
                     <td>
                         <a href="{{ route('admin.assessments.show', $assessment) }}"
-                            class="btn-icon" title="Detail">👁️detail</a>
+                            style="display:inline-flex; align-items:center; gap:4px; padding:6px 14px; background:#4f7cff; color:white; text-decoration:none; border-radius:8px; font-size:0.8rem; font-weight:600;">
+                            Detail
+                        </a>
                     </td>
                 </tr>
                 @empty

@@ -85,7 +85,7 @@
                     </td>
                     <td><?php echo e($assessment->evaluatee->jabatan->nama_jabatan ?? '-'); ?></td>
                     <td><?php echo e($assessment->evaluator->adminProfile->nama_admin ?? '-'); ?></td>
-                    <td><?php echo e($assessment->assessment_date->format('d M Y')); ?></td>
+                    <td style="font-size:0.85rem;"><?php echo e($assessment->assessment_date->format('d M Y')); ?></td>
                     <td>
                         <div style="display:flex; align-items:center; gap:6px;">
                             <span style="font-size:1.2rem; font-weight:700; color:#4f7cff;">
@@ -94,7 +94,6 @@
                             </span>
                             <span style="color:var(--mid); font-size:0.8rem;">/5</span>
                         </div>
-                        
                         <div style="font-size:0.75rem; line-height:1;">
                             <?php for($i = 1; $i <= 5; $i++): ?>
                                 <span style="color: <?php echo e($i <= round($assessment->average_score) ? '#fbbf24' : '#e5e7eb'); ?>">★</span>
@@ -104,11 +103,11 @@
                     <td>
                         <?php
                             $badgeMap = [
-                                'Sangat Baik'    => 'badge-green',
-                                'Baik'           => 'badge-blue',
-                                'Cukup'          => 'badge-amber',
-                                'Kurang'         => 'badge-red',
-                                'Sangat Kurang'  => 'badge-red',
+                                'Sangat Baik'   => 'badge-green',
+                                'Baik'          => 'badge-blue',
+                                'Cukup'         => 'badge-amber',
+                                'Kurang'        => 'badge-red',
+                                'Sangat Kurang' => 'badge-red',
                             ];
                         ?>
                         <span class="badge <?php echo e($badgeMap[$assessment->score_label] ?? 'badge-gray'); ?>">
@@ -118,7 +117,9 @@
                     </td>
                     <td>
                         <a href="<?php echo e(route('admin.assessments.show', $assessment)); ?>"
-                            class="btn-icon" title="Detail">👁️detail</a>
+                            style="display:inline-flex; align-items:center; gap:4px; padding:6px 14px; background:#4f7cff; color:white; text-decoration:none; border-radius:8px; font-size:0.8rem; font-weight:600;">
+                            Detail
+                        </a>
                     </td>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

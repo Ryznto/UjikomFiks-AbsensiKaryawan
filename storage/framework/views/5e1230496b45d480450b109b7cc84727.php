@@ -7,7 +7,7 @@
 <?php $__env->startSection('content'); ?>
 
 <a href="<?php echo e(route('admin.assessments.index', ['period' => $period])); ?>"
-    style="display:inline-flex; align-items:center; gap:6px; margin-bottom:20px; color:var(--mid); text-decoration:none;">
+    style="display:inline-flex; align-items:center; gap:8px; padding:10px 20px; background:linear-gradient(135deg,#4f7cff,#a855f7); color:white; text-decoration:none; border-radius:12px; font-size:0.85rem; font-weight:600; box-shadow:0 4px 15px rgba(79,124,255,0.4); margin-bottom:20px;">
     ← Kembali ke Dashboard
 </a>
 
@@ -60,7 +60,7 @@
                 $existingScore = $existingScore ? (int) $existingScore : null;
             ?>
             <div class="statement-item" id="card-<?php echo e($statement->id); ?>"
-                style="border:1px solid #e5e7eb; border-radius:12px; padding:16px 20px; transition:border-color 0.2s; <?php echo e($existingScore ? 'border-color:#22c55e; background:#f0fff4;' : ''); ?>">
+                style="border:1px solid #e5e7eb; border-radius:12px; padding:16px 20px; transition:border-color 0.2s; <?php echo e($existingScore ? 'border-color:#22c55e; background:rgba(34,197,94,0.1);' : ''); ?>">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
                     <div style="flex:1;">
                         <div style="font-size:0.9rem; font-weight:500;"><?php echo e($loop->iteration); ?>. <?php echo e($statement->statement); ?></div>
@@ -102,15 +102,20 @@
     </div>
 
     
-    <div style="display:flex; gap:12px; justify-content:flex-end;">
-        <a href="<?php echo e(route('admin.assessments.index', ['period' => $period])); ?>"
-            style="padding:12px 24px; border:1px solid #ddd; border-radius:8px; text-decoration:none; color:var(--mid);">
-            Batal
-        </a>
-        <button type="submit" class="btn-primary">
-            💾 Simpan Penilaian
-        </button>
-    </div>
+<div style="display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap;">
+    <a href="<?php echo e(route('admin.assessments.index', ['period' => $period])); ?>"
+        style="padding:12px 24px; border:none; border-radius:8px; text-decoration:none; background:linear-gradient(135deg,#ef4444,#dc2626); color:white; font-weight:600; font-size:0.9rem; box-shadow:0 4px 15px rgba(239,68,68,0.4);">
+        ✕ Batal
+    </a>
+    <button type="submit" name="action" value="save"
+        style="padding:12px 24px; border:none; border-radius:8px; background:linear-gradient(135deg,#22c55e,#16a34a); color:white; cursor:pointer; font-weight:600; font-size:0.9rem; box-shadow:0 4px 15px rgba(34,197,94,0.4);">
+        💾 Simpan Saja
+    </button>
+    <button type="submit" name="action" value="save_next"
+        style="padding:12px 24px; border:none; border-radius:8px; background:linear-gradient(135deg,#4f7cff,#a855f7); color:white; cursor:pointer; font-weight:600; font-size:0.9rem; box-shadow:0 4px 15px rgba(79,124,255,0.4);">
+        💾 Simpan & Lanjut →
+    </button>
+</div>
 </form>
 
 <?php $__env->stopSection(); ?>
@@ -145,9 +150,9 @@
         color: white;
     }
     .statement-item.rated {
-        border-color: #22c55e !important;
-        background: #f0fff4;
-    }
+    border-color: #22c55e !important;
+    background: rgba(34, 197, 94, 0.1);
+}
 </style>
 <?php $__env->stopPush(); ?>
 
