@@ -29,27 +29,45 @@
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             Izin & Cuti
         </a>
-        <a href="<?php echo e(route('admin.koreksi-absen.index')); ?>"
-    class="nav-item <?php echo e(request()->routeIs('admin.koreksi-absen.*') ? 'active' : ''); ?>">
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-    </svg>
-    Koreksi Absen
-    <?php $pendingKoreksi = \App\Models\KoreksiAbsen::where('status','pending')->count(); ?>
-    <?php if($pendingKoreksi > 0): ?>
-        <span class="nav-badge"><?php echo e($pendingKoreksi); ?></span>
-    <?php endif; ?>
-</a>
-<a href="<?php echo e(route('admin.laporan.index')); ?>"
-    class="nav-item <?php echo e(request()->routeIs('admin.laporan.*') ? 'active' : ''); ?>">
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-    </svg>
-    Laporan
-</a>
+        <a href="<?php echo e(route('admin.koreksi-absen.index')); ?>" class="nav-item <?php echo e(request()->routeIs('admin.koreksi-absen.*') ? 'active' : ''); ?>">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+            Koreksi Absen
+            <?php $pendingKoreksi = \App\Models\KoreksiAbsen::where('status','pending')->count(); ?>
+            <?php if($pendingKoreksi > 0): ?>
+                <span class="nav-badge"><?php echo e($pendingKoreksi); ?></span>
+            <?php endif; ?>
+        </a>
+        <a href="<?php echo e(route('admin.laporan.index')); ?>" class="nav-item <?php echo e(request()->routeIs('admin.laporan.*') ? 'active' : ''); ?>">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Laporan
+        </a>
     </div>
 
-    
+    <div class="nav-section">
+        <div class="nav-label">Penilaian</div>
+        <a href="<?php echo e(route('admin.assessments.index')); ?>" class="nav-item <?php echo e(request()->routeIs('admin.assessments.index') ? 'active' : ''); ?>">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+            </svg>
+            Penilaian Karyawan
+        </a>
+        <a href="<?php echo e(route('admin.assessments.report')); ?>" class="nav-item <?php echo e(request()->routeIs('admin.assessments.report') ? 'active' : ''); ?>">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Laporan Penilaian
+        </a>
+        <a href="<?php echo e(route('admin.assessment-categories.index')); ?>" class="nav-item <?php echo e(request()->routeIs('admin.assessment-categories.*') ? 'active' : ''); ?>">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/>
+            </svg>
+            Kategori Penilaian
+        </a>
+    </div>
 
     <div class="nav-section">
         <div class="nav-label">Master Data</div>
@@ -67,31 +85,31 @@
         </a>
     </div>
 
-   <div class="sidebar-footer">
-    <a href="<?php echo e(route('admin.profil.index')); ?>" class="user-card">
-        <div style="width: 34px; height: 34px; border-radius: 9px; overflow: hidden; flex-shrink: 0;">
-            <?php if(auth()->user()->adminProfile->foto): ?>
-                <img src="<?php echo e(asset('storage/' . auth()->user()->adminProfile->foto)); ?>"
-                    style="width: 100%; height: 100%; object-fit: cover;">
-            <?php else: ?>
-                <div class="avatar">
-                    <?php echo e(strtoupper(substr(auth()->user()->adminProfile->nama_admin ?? 'A', 0, 2))); ?>
+    <div class="sidebar-footer">
+        <a href="<?php echo e(route('admin.profil.index')); ?>" class="user-card">
+            <div style="width:34px; height:34px; border-radius:9px; overflow:hidden; flex-shrink:0;">
+                <?php if(auth()->user()->adminProfile->foto): ?>
+                    <img src="<?php echo e(asset('storage/' . auth()->user()->adminProfile->foto)); ?>"
+                        style="width:100%; height:100%; object-fit:cover;">
+                <?php else: ?>
+                    <div class="avatar">
+                        <?php echo e(strtoupper(substr(auth()->user()->adminProfile->nama_admin ?? 'A', 0, 2))); ?>
 
-                </div>
-            <?php endif; ?>
-        </div>
-        <div style="flex:1; min-width:0;">
-            <div class="user-name"><?php echo e(auth()->user()->adminProfile->nama_admin ?? 'Admin'); ?></div>
-            <div class="user-role"><?php echo e(auth()->user()->nip); ?></div>
-        </div>
-        <form method="POST" action="<?php echo e(route('logout')); ?>">
-            <?php echo csrf_field(); ?>
-            <button type="submit" title="Logout" style="background:none; border:none; cursor:pointer; color:var(--mid); display:flex; align-items:center;">
-                <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                </svg>
-            </button>
-        </form>
-    </a>
-</div>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div style="flex:1; min-width:0;">
+                <div class="user-name"><?php echo e(auth()->user()->adminProfile->nama_admin ?? 'Admin'); ?></div>
+                <div class="user-role"><?php echo e(auth()->user()->nip); ?></div>
+            </div>
+            <form method="POST" action="<?php echo e(route('logout')); ?>">
+                <?php echo csrf_field(); ?>
+                <button type="submit" title="Logout" style="background:none; border:none; cursor:pointer; color:var(--mid); display:flex; align-items:center;">
+                    <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                    </svg>
+                </button>
+            </form>
+        </a>
+    </div>
 </aside><?php /**PATH C:\laragon\www\absensi-karyawan\resources\views/partials/sidebar.blade.php ENDPATH**/ ?>
