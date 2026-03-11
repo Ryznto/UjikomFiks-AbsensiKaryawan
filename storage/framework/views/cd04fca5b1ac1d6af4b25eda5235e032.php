@@ -77,33 +77,54 @@
             Detail Nilai
         </div>
     </div>
-    <div style="padding:20px; display:flex; flex-direction:column; gap:16px;">
-        <?php $__currentLoopData = $currentAssessment->details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-               <span style="font-weight:600; font-size:0.9rem;"><?php echo e($detail->statement->statement ?? '-'); ?></span>
-                <span style="font-weight:700; color:#4f7cff;"><?php echo e(number_format($detail->score, 1)); ?>/5</span>
-            </div>
+    <div style="padding:12px 16px; display:flex; flex-direction:column; gap:8px;">
+        <?php $__currentLoopData = $currentAssessment->details->groupBy('statement.category.name'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categoryName => $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php $avgCat = round($details->avg('score'), 1); ?>
+        <div class="accordion-item" style="border:1px solid #e5e7eb; border-radius:12px; overflow:hidden;">
             
-            <div style="margin-bottom:6px;">
-                <?php for($i = 1; $i <= 5; $i++): ?>
-                    <span style="font-size:1.1rem; color:<?php echo e($i <= $detail->score ? '#fbbf24' : '#e5e7eb'); ?>">★</span>
-                <?php endfor; ?>
+            <div class="accordion-header" onclick="toggleAccordion(<?php echo e($loop->index); ?>)"
+              style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; cursor:pointer; background:#1e1e2e; color:white;">
+                <div style="font-weight:700;"><?php echo e($categoryName); ?></div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div>
+                        <?php for($i = 1; $i <= 5; $i++): ?>
+                            <span style="color:<?php echo e($i <= $avgCat ? '#fbbf24' : '#e5e7eb'); ?>">★</span>
+                        <?php endfor; ?>
+                    </div>
+                    <span style="font-weight:700; color:#4f7cff; font-size:0.9rem;"><?php echo e($avgCat); ?>/5</span>
+                    <span id="arrow-<?php echo e($loop->index); ?>" style="color:var(--mid); transition:transform 0.3s;">▼</span>
+                </div>
             </div>
+
             
-            <?php
-                $pct = ($detail->score / 5) * 100;
-                $color = $detail->score >= 4 ? '#22c55e' : ($detail->score >= 3 ? '#4f7cff' : ($detail->score >= 2 ? '#fbbf24' : '#ef4444'));
-            ?>
-            <div style="background:#f0f0f0; border-radius:99px; height:8px;">
-                <div style="width:<?php echo e($pct); ?>%; background:<?php echo e($color); ?>; height:100%; border-radius:99px; transition:width 1s ease;"></div>
+            <div id="accordion-<?php echo e($loop->index); ?>" style="display:none; padding:12px 16px; flex-direction:column; gap:12px;">
+                <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                        <span style="font-size:0.85rem;"><?php echo e($detail->statement->statement ?? '-'); ?></span>
+                        <span style="font-weight:700; color:#4f7cff; font-size:0.85rem; white-space:nowrap; margin-left:8px;"><?php echo e(number_format($detail->score, 1)); ?>/5</span>
+                    </div>
+                    <div>
+                        <?php for($i = 1; $i <= 5; $i++): ?>
+                            <span style="font-size:0.9rem; color:<?php echo e($i <= $detail->score ? '#fbbf24' : '#e5e7eb'); ?>">★</span>
+                        <?php endfor; ?>
+                    </div>
+                    <?php
+                        $pct = ($detail->score / 5) * 100;
+                        $color = $detail->score >= 4 ? '#22c55e' : ($detail->score >= 3 ? '#4f7cff' : ($detail->score >= 2 ? '#fbbf24' : '#ef4444'));
+                    ?>
+                    <div style="background:#f0f0f0; border-radius:99px; height:6px; margin-top:4px;">
+                        <div style="width:<?php echo e($pct); ?>%; background:<?php echo e($color); ?>; height:100%; border-radius:99px;"></div>
+                    </div>
+                </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
         
         <?php if($currentAssessment->general_notes): ?>
-        <div style="background:#eff0f1; border-radius:12px; padding:16px; margin-top:8px;">
+        <div style="background:#eff0f1; border-radius:12px; padding:16px; margin-top:4px;">
             <div style="font-weight:600; margin-bottom:8px; color:#131328;">💬 Catatan dari Penilai</div>
             <p style="margin:0; line-height:1.7; font-size:0.9rem; color:#1a1a2e;"><?php echo e($currentAssessment->general_notes); ?></p>
         </div>
@@ -156,7 +177,7 @@
                     <td>
                         <a href="<?php echo e(route('karyawan.assessments.show', $item)); ?>"
                             style="color:#4f7cff; text-decoration:none; font-size:0.85rem;">
-                             Detail
+                            Detail
                         </a>
                     </td>
                 </tr>
@@ -208,6 +229,18 @@ new Chart(document.getElementById('radarChart').getContext('2d'), {
     }
 });
 <?php endif; ?>
+
+function toggleAccordion(index) {
+    const content = document.getElementById(`accordion-${index}`);
+    const arrow   = document.getElementById(`arrow-${index}`);
+    if (content.style.display === 'none' || content.style.display === '') {
+        content.style.display = 'flex';
+        arrow.style.transform = 'rotate(180deg)';
+    } else {
+        content.style.display = 'none';
+        arrow.style.transform = 'rotate(0deg)';
+    }
+}
 </script>
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.karyawan', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\absensi-karyawan\resources\views/karyawan/assessments/my_report.blade.php ENDPATH**/ ?>

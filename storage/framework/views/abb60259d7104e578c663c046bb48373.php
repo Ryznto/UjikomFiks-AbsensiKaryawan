@@ -1,18 +1,18 @@
-@extends('layouts.app')
 
-@section('title', 'Kategori Penilaian')
-@section('page-title', 'Kategori Penilaian')
-@section('page-sub', 'Kelola indikator penilaian karyawan')
 
-@section('content')
+<?php $__env->startSection('title', 'Kategori Penilaian'); ?>
+<?php $__env->startSection('page-title', 'Kategori Penilaian'); ?>
+<?php $__env->startSection('page-sub', 'Kelola indikator penilaian karyawan'); ?>
 
-{{-- Alert --}}
-@if(session('success'))
-<div class="alert alert-success">✅ {{ session('success') }}</div>
-@endif
-@if(session('error'))
-<div class="alert alert-danger">❌ {{ session('error') }}</div>
-@endif
+<?php $__env->startSection('content'); ?>
+
+
+<?php if(session('success')): ?>
+<div class="alert alert-success">✅ <?php echo e(session('success')); ?></div>
+<?php endif; ?>
+<?php if(session('error')): ?>
+<div class="alert alert-danger">❌ <?php echo e(session('error')); ?></div>
+<?php endif; ?>
 
 <div class="card">
     <div class="card-header">
@@ -37,43 +37,44 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($categories as $cat)
+                <?php $__empty_1 = true; $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td><strong>{{ $cat->name }}</strong></td>
-                    <td style="color: var(--mid)">{{ $cat->description ?? '-' }}</td>
-                    <td>{{ $cat->max_score }}</td>
+                    <td><?php echo e($loop->iteration); ?></td>
+                    <td><strong><?php echo e($cat->name); ?></strong></td>
+                    <td style="color: var(--mid)"><?php echo e($cat->description ?? '-'); ?></td>
+                    <td><?php echo e($cat->max_score); ?></td>
                     <td>
-                        @if($cat->is_active)
+                        <?php if($cat->is_active): ?>
                             <span class="badge badge-green"><span class="badge-dot"></span>Aktif</span>
-                        @else
+                        <?php else: ?>
                             <span class="badge badge-red"><span class="badge-dot"></span>Nonaktif</span>
-                        @endif
+                        <?php endif; ?>
                     </td>
                     <td>
                         <div style="display:flex; gap:8px;">
-                            {{-- Edit --}}
-                            <button onclick="openEdit({{ $cat->id }}, '{{ $cat->name }}', '{{ addslashes($cat->description) }}', {{ $cat->max_score }})"
+                            
+                            <button onclick="openEdit(<?php echo e($cat->id); ?>, '<?php echo e($cat->name); ?>', '<?php echo e(addslashes($cat->description)); ?>', <?php echo e($cat->max_score); ?>)"
                                 class="btn-icon" title="Edit">✏️</button>
 
-                            {{-- Toggle Status --}}
-                            <form action="{{ route('admin.assessment-categories.toggle', $cat) }}" method="POST" style="display:inline;">
-                                @csrf @method('PATCH')
-                                <button type="submit" class="btn-icon" title="{{ $cat->is_active ? 'Nonaktifkan' : 'Aktifkan' }}">
-                                    {{ $cat->is_active ? '🔴' : '🟢' }}
+                            
+                            <form action="<?php echo e(route('admin.assessment-categories.toggle', $cat)); ?>" method="POST" style="display:inline;">
+                                <?php echo csrf_field(); ?> <?php echo method_field('PATCH'); ?>
+                                <button type="submit" class="btn-icon" title="<?php echo e($cat->is_active ? 'Nonaktifkan' : 'Aktifkan'); ?>">
+                                    <?php echo e($cat->is_active ? '🔴' : '🟢'); ?>
+
                                 </button>
                             </form>
 
-                            {{-- Hapus --}}
-                            <form action="{{ route('admin.assessment-categories.destroy', $cat) }}" method="POST" style="display:inline;"
+                            
+                            <form action="<?php echo e(route('admin.assessment-categories.destroy', $cat)); ?>" method="POST" style="display:inline;"
                                 onsubmit="return confirm('Yakin hapus kategori ini?')">
-                                @csrf @method('DELETE')
+                                <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
                                 <button type="submit" class="btn-icon" title="Hapus">🗑️</button>
                             </form>
                         </div>
                     </td>
                 </tr>
-                @empty
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                 <tr>
                     <td colspan="6">
                         <div class="empty-state">
@@ -81,18 +82,18 @@
                         </div>
                     </td>
                 </tr>
-                @endforelse
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
 </div>
 
-{{-- Modal Tambah --}}
+
 <div id="modalTambah" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999; align-items:center; justify-content:center;">
     <div style="background:white; border-radius:16px; padding:32px; width:100%; max-width:480px;">
         <h3 style="margin-bottom:20px;">+ Tambah Indikator Penilaian</h3>
-        <form action="{{ route('admin.assessment-categories.store') }}" method="POST">
-            @csrf
+        <form action="<?php echo e(route('admin.assessment-categories.store')); ?>" method="POST">
+            <?php echo csrf_field(); ?>
             <div class="form-group">
                 <label>Nama Indikator</label>
                 <input type="text" name="name" class="form-control" placeholder="Cth: Kedisiplinan" required>
@@ -117,12 +118,12 @@
     </div>
 </div>
 
-{{-- Modal Edit --}}
+
 <div id="modalEdit" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999; align-items:center; justify-content:center;">
     <div style="background:#1e1e2e; border-radius:16px; padding:32px; width:100%; max-width:480px;">
         <h3 style="margin-bottom:20px;">✏️ Edit Indikator Penilaian</h3>
         <form id="formEdit" method="POST">
-            @csrf @method('PUT')
+            <?php echo csrf_field(); ?> <?php echo method_field('PUT'); ?>
             <div class="form-group">
                 <label>Nama Indikator</label>
                 <input type="text" name="name" id="editName" class="form-control" required>
@@ -146,9 +147,9 @@
     </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     function openEdit(id, name, description, maxScore) {
         document.getElementById('formEdit').action = `/admin/assessment-categories/${id}`;
@@ -158,4 +159,5 @@
         document.getElementById('modalEdit').style.display = 'flex';
     }
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\absensi-karyawan\resources\views/admin/assessment_categories/index.blade.php ENDPATH**/ ?>
