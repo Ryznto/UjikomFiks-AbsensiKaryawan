@@ -11,6 +11,13 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Carbon\Carbon;
 
+/**
+ * @package App\\Exports
+ * @author AbsensiKu
+ * @version 1.0.0
+ * 
+ * Export laporan izin dan cuti karyawan ke Excel.
+ */
 class IzinCutiExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithTitle
 {
     protected $bulan;

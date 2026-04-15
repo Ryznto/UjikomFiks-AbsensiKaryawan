@@ -54,6 +54,7 @@
                 <label class="form-label">Divisi</label>
                 <select name="divisi_id" class="form-control" style="width: 180px;">
                     <option value="">Semua Divisi</option>
+                    {{-- [LOOPING - foreach] = menampilkan semua divisi di dropdown filter --}}
                     @foreach($divisis as $d)
                     <option value="{{ $d->id }}" {{ request('divisi_id') == $d->id ? 'selected' : '' }}>
                         {{ $d->nama_divisi }}
@@ -163,7 +164,7 @@
                         @endif
                     </td>
                 </tr>
-                @empty
+                @empty  {{-- [KONDISI] = jika $presensis kosong/tidak ada data --}}
                 <tr>
                     <td colspan="9">
                         <div class="empty-state">
@@ -176,6 +177,8 @@
         </table>
     </div>
 
+
+{{-- [KONDISI] = cek apakah data lebih dari 1 halaman, jika iya tampilkan pagination --}}
     @if($presensis->hasPages())
     <div style="padding: 16px 22px; border-top: 1px solid var(--border);">
         {{ $presensis->links() }}

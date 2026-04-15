@@ -12,12 +12,26 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Carbon\Carbon;
 
+/**
+ * @package App\\Exports
+ * @author AbsensiKu
+ * @version 1.0.0
+ * 
+ * Export rekap kehadiran karyawan per bulan ke Excel.
+ */
 class KaryawanRekapExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithTitle
 {
     protected $bulan;
     protected $tahun;
     protected $divisiId;
 
+    /**
+     * Constructor untuk menginisialisasi parameter export.
+     * 
+     * @param int $bulan Bulan laporan
+     * @param int $tahun Tahun laporan
+     * @param int|null $divisiId ID divisi untuk filter
+     */
     public function __construct($bulan, $tahun, $divisiId = null)
     {
         $this->bulan    = $bulan;

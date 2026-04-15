@@ -4,6 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @package App\\Models
+ * @author AbsensiKu
+ * @version 1.0.0
+ * 
+ * Model Eloquent untuk mengelola jadwal shift kerja.
+ */
 class Shift extends Model
 {
     protected $table = 'shift';
@@ -15,6 +22,11 @@ class Shift extends Model
         'toleransi_terlambat',
     ];
 
+    /**
+     * Relasi ke karyawan dengan shift ini.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function karyawans()
     {
         return $this->hasMany(Karyawan::class);

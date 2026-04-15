@@ -5,6 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @package App\\Models
+ * @author AbsensiKu
+ * @version 1.0.0
+ * 
+ * Model Eloquent untuk penilaian (assessment) karyawan.
+ */
 class Assessment extends Model
 {
     use HasFactory;
@@ -27,6 +34,11 @@ class Assessment extends Model
     ];
 
     // Admin yang menilai
+    /**
+     * Relasi ke admin yang melakukan penilaian.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function evaluator()
     {
         return $this->belongsTo(User::class, 'evaluator_id');

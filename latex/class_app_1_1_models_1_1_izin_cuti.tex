@@ -1,0 +1,80 @@
+\doxysection{App\textbackslash{}Models\textbackslash{}Izin\+Cuti Class Reference}
+\hypertarget{class_app_1_1_models_1_1_izin_cuti}{}\label{class_app_1_1_models_1_1_izin_cuti}\index{App\textbackslash{}Models\textbackslash{}IzinCuti@{App\textbackslash{}Models\textbackslash{}IzinCuti}}
+Inheritance diagram for App\textbackslash{}Models\textbackslash{}Izin\+Cuti:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_app_1_1_models_1_1_izin_cuti}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_app_1_1_models_1_1_izin_cuti_a885be3606ae7ee796c8f1273b1ca054b}{karyawan}} ()
+\item 
+\doxymbox{\hyperlink{class_app_1_1_models_1_1_izin_cuti_a29e995d04a99098576f8c388572ac032}{approved\+By}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_app_1_1_models_1_1_izin_cuti_ab32bf705ca5c0345ae8725137b5f3853}\label{class_app_1_1_models_1_1_izin_cuti_ab32bf705ca5c0345ae8725137b5f3853} 
+{\bfseries \$table} = \textquotesingle{}izin\+\_\+cuti\textquotesingle{}
+\item 
+\doxymbox{\hyperlink{class_app_1_1_models_1_1_izin_cuti_a377d155f6b7524cd3bb1583b22b8b354}{\$fillable}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_app_1_1_models_1_1_izin_cuti_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_app_1_1_models_1_1_izin_cuti_a29e995d04a99098576f8c388572ac032}\index{App\textbackslash{}Models\textbackslash{}IzinCuti@{App\textbackslash{}Models\textbackslash{}IzinCuti}!approvedBy@{approvedBy}}
+\index{approvedBy@{approvedBy}!App\textbackslash{}Models\textbackslash{}IzinCuti@{App\textbackslash{}Models\textbackslash{}IzinCuti}}
+\doxysubsubsection{\texorpdfstring{approvedBy()}{approvedBy()}}
+{\footnotesize\ttfamily \label{class_app_1_1_models_1_1_izin_cuti_a29e995d04a99098576f8c388572ac032} 
+App\textbackslash{}\+Models\textbackslash{}\+Izin\+Cuti::\+approved\+By (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Relasi ke admin yang menyetujui izin/\+cuti.
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Illuminate\textbackslash{}\+Database\textbackslash{}\+Eloquent\textbackslash{}\+Relations\textbackslash{}\+Belongs\+To 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_models_1_1_izin_cuti_a885be3606ae7ee796c8f1273b1ca054b}\index{App\textbackslash{}Models\textbackslash{}IzinCuti@{App\textbackslash{}Models\textbackslash{}IzinCuti}!karyawan@{karyawan}}
+\index{karyawan@{karyawan}!App\textbackslash{}Models\textbackslash{}IzinCuti@{App\textbackslash{}Models\textbackslash{}IzinCuti}}
+\doxysubsubsection{\texorpdfstring{karyawan()}{karyawan()}}
+{\footnotesize\ttfamily \label{class_app_1_1_models_1_1_izin_cuti_a885be3606ae7ee796c8f1273b1ca054b} 
+App\textbackslash{}\+Models\textbackslash{}\+Izin\+Cuti::\+karyawan (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Relasi ke karyawan yang mengajukan izin/\+cuti.
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Illuminate\textbackslash{}\+Database\textbackslash{}\+Eloquent\textbackslash{}\+Relations\textbackslash{}\+Belongs\+To 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{class_app_1_1_models_1_1_izin_cuti_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_app_1_1_models_1_1_izin_cuti_a377d155f6b7524cd3bb1583b22b8b354}\index{App\textbackslash{}Models\textbackslash{}IzinCuti@{App\textbackslash{}Models\textbackslash{}IzinCuti}!\$fillable@{\$fillable}}
+\index{\$fillable@{\$fillable}!App\textbackslash{}Models\textbackslash{}IzinCuti@{App\textbackslash{}Models\textbackslash{}IzinCuti}}
+\doxysubsubsection{\texorpdfstring{\$fillable}{\$fillable}}
+{\footnotesize\ttfamily \label{class_app_1_1_models_1_1_izin_cuti_a377d155f6b7524cd3bb1583b22b8b354} 
+App\textbackslash{}\+Models\textbackslash{}\+Izin\+Cuti::\+\$fillable\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ [}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'karyawan\_id'},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'jenis'},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'tanggal\_mulai'},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'tanggal\_selesai'},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'keterangan'},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'status'},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'approved\_by'},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'approved\_at'},}
+\DoxyCodeLine{]}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+app/\+\+Models/\+Izin\+Cuti.\+php\end{DoxyCompactItemize}

@@ -1,3 +1,4 @@
+ 
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -11,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+         // Schema::create = perintah untuk membuat tabel bernama 'presensi'
        Schema::create('presensi', function (Blueprint $table) {
     $table->id();
     $table->foreignId('karyawan_id')->constrained('karyawan')->cascadeOnDelete();
@@ -39,3 +41,4 @@ return new class extends Migration
         Schema::dropIfExists('presensis');
     }
 };
+#

@@ -11,12 +11,26 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Carbon\Carbon;
 
+/**
+ * @package App\\Exports
+ * @author AbsensiKu
+ * @version 1.0.0
+ * 
+ * Export laporan presensi karyawan ke Excel.
+ */
 class PresensiExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithTitle
 {
     protected $bulan;
     protected $tahun;
     protected $divisiId;
 
+    /**
+     * Constructor untuk menginisialisasi parameter export.
+     * 
+     * @param int $bulan Bulan laporan (1-12)
+     * @param int $tahun Tahun laporan
+     * @param int|null $divisiId ID divisi opsional untuk filter
+     */
     public function __construct($bulan, $tahun, $divisiId = null)
     {
         $this->bulan   = $bulan;
@@ -24,6 +38,11 @@ class PresensiExport implements FromCollection, WithHeadings, WithMapping, WithS
         $this->divisiId = $divisiId;
     }
 
+    /**
+     * Mengambil koleksi data presensi untuk export.
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function collection()
     {
         $query = Presensi::with(['karyawan.user', 'karyawan.divisi', 'karyawan.shift'])
@@ -37,6 +56,11 @@ class PresensiExport implements FromCollection, WithHeadings, WithMapping, WithS
         return $query->orderBy('tanggal')->orderBy('karyawan_id')->get();
     }
 
+    /**
+     * Header kolom Excel.
+     * 
+     * @return array
+     */
     public function headings(): array
     {
         return [
@@ -46,6 +70,12 @@ class PresensiExport implements FromCollection, WithHeadings, WithMapping, WithS
         ];
     }
 
+    /**
+     * Mapping data row ke array Excel.
+     * 
+     * @param \App\\Models\\Presensi $row Data presensi
+     * @return array
+     */
     public function map($row): array
     {
         static $no = 0;
@@ -76,6 +106,12 @@ class PresensiExport implements FromCollection, WithHeadings, WithMapping, WithS
         ];
     }
 
+    /**
+     * Styling untuk worksheet Excel.
+     * 
+     * @param \PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet $sheet
+     * @return array
+     */
     public function styles(Worksheet $sheet)
     {
         return [
@@ -83,8 +119,14 @@ class PresensiExport implements FromCollection, WithHeadings, WithMapping, WithS
         ];
     }
 
+    /**
+     * Judul sheet Excel.
+     * 
+     * @return string
+     */
     public function title(): string
     {
         return 'Presensi ' . Carbon::create($this->tahun, $this->bulan)->format('F Y');
     }
 }
+

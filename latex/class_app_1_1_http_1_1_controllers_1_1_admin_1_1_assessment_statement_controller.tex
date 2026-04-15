@@ -1,0 +1,107 @@
+\doxysection{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}Assessment\+Statement\+Controller Class Reference}
+\hypertarget{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller}{}\label{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller}\index{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController@{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController}}
+Inheritance diagram for App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}Assessment\+Statement\+Controller:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_a99450f18e0d47a8191868333a35fbe1f}{index}} (\doxymbox{\hyperlink{class_app_1_1_models_1_1_assessment_category}{Assessment\+Category}} \$assessment\+Category)
+\item 
+\doxymbox{\hyperlink{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_af6492eb6c2c8f11860de9eddca2a687b}{store}} (Request \$request, \doxymbox{\hyperlink{class_app_1_1_models_1_1_assessment_category}{Assessment\+Category}} \$assessment\+Category)
+\item 
+\doxymbox{\hyperlink{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_a84d6c34e30e8835f1af1098b5e87a69c}{update}} (Request \$request, \doxymbox{\hyperlink{class_app_1_1_models_1_1_assessment_statement}{Assessment\+Statement}} \$assessment\+Statement)
+\item 
+\doxymbox{\hyperlink{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_a43f3f1e880c0fff37f22ababe15493dd}{destroy}} (\doxymbox{\hyperlink{class_app_1_1_models_1_1_assessment_statement}{Assessment\+Statement}} \$assessment\+Statement)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_a43f3f1e880c0fff37f22ababe15493dd}\index{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController@{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController}!destroy@{destroy}}
+\index{destroy@{destroy}!App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController@{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController}}
+\doxysubsubsection{\texorpdfstring{destroy()}{destroy()}}
+{\footnotesize\ttfamily \label{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_a43f3f1e880c0fff37f22ababe15493dd} 
+App\textbackslash{}\+Http\textbackslash{}\+Controllers\textbackslash{}\+Admin\textbackslash{}\+Assessment\+Statement\+Controller::\+destroy (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_app_1_1_models_1_1_assessment_statement}{Assessment\+Statement}}}]{\$assessment\+Statement}{}\end{DoxyParamCaption})}
+
+Menghapus statement assessment.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+App\textbackslash{}\textbackslash{}\+Models\textbackslash{}\textbackslash{}\+Assessment\+Statement & {\em \$assessment\+Statement} & Statement assessment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Illuminate\textbackslash{}\+Http\textbackslash{}\+Redirect\+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_a99450f18e0d47a8191868333a35fbe1f}\index{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController@{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController}!index@{index}}
+\index{index@{index}!App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController@{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily \label{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_a99450f18e0d47a8191868333a35fbe1f} 
+App\textbackslash{}\+Http\textbackslash{}\+Controllers\textbackslash{}\+Admin\textbackslash{}\+Assessment\+Statement\+Controller::\+index (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_app_1_1_models_1_1_assessment_category}{Assessment\+Category}}}]{\$assessment\+Category}{}\end{DoxyParamCaption})}
+
+Menampilkan daftar statement assessment kategori tertentu.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+App\textbackslash{}\textbackslash{}\+Models\textbackslash{}\textbackslash{}\+Assessment\+Category & {\em \$assessment\+Category} & Kategori assessment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Illuminate\textbackslash{}\+Http\textbackslash{}\+Json\+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_af6492eb6c2c8f11860de9eddca2a687b}\index{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController@{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController}!store@{store}}
+\index{store@{store}!App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController@{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController}}
+\doxysubsubsection{\texorpdfstring{store()}{store()}}
+{\footnotesize\ttfamily \label{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_af6492eb6c2c8f11860de9eddca2a687b} 
+App\textbackslash{}\+Http\textbackslash{}\+Controllers\textbackslash{}\+Admin\textbackslash{}\+Assessment\+Statement\+Controller::\+store (\begin{DoxyParamCaption}\item[{Request}]{\$request}{, }\item[{\doxymbox{\hyperlink{class_app_1_1_models_1_1_assessment_category}{Assessment\+Category}}}]{\$assessment\+Category}{}\end{DoxyParamCaption})}
+
+Menyimpan statement assessment baru.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+Illuminate\textbackslash{}\+Http\textbackslash{}\+Request & {\em \$request} & Data statement \\
+\hline
+\textbackslash{}\+App\textbackslash{}\textbackslash{}\+Models\textbackslash{}\textbackslash{}\+Assessment\+Category & {\em \$assessment\+Category} & Kategori assessment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Illuminate\textbackslash{}\+Http\textbackslash{}\+Redirect\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+Illuminate\textbackslash{}\+Validation\textbackslash{}\+Validation\+Exception \Hypertarget{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_a84d6c34e30e8835f1af1098b5e87a69c}\index{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController@{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController}!update@{update}}
+\index{update@{update}!App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController@{App\textbackslash{}Http\textbackslash{}Controllers\textbackslash{}Admin\textbackslash{}AssessmentStatementController}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_app_1_1_http_1_1_controllers_1_1_admin_1_1_assessment_statement_controller_a84d6c34e30e8835f1af1098b5e87a69c} 
+App\textbackslash{}\+Http\textbackslash{}\+Controllers\textbackslash{}\+Admin\textbackslash{}\+Assessment\+Statement\+Controller::\+update (\begin{DoxyParamCaption}\item[{Request}]{\$request}{, }\item[{\doxymbox{\hyperlink{class_app_1_1_models_1_1_assessment_statement}{Assessment\+Statement}}}]{\$assessment\+Statement}{}\end{DoxyParamCaption})}
+
+Memperbarui statement assessment.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+Illuminate\textbackslash{}\+Http\textbackslash{}\+Request & {\em \$request} & Data statement baru \\
+\hline
+\textbackslash{}\+App\textbackslash{}\textbackslash{}\+Models\textbackslash{}\textbackslash{}\+Assessment\+Statement & {\em \$assessment\+Statement} & Statement assessment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Illuminate\textbackslash{}\+Http\textbackslash{}\+Redirect\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+Illuminate\textbackslash{}\+Validation\textbackslash{}\+Validation\+Exception 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+app/\+\+Http/\+\+Controllers/\+\+Admin/\+Assessment\+Statement\+Controller.\+php\end{DoxyCompactItemize}

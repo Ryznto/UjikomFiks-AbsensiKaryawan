@@ -1,0 +1,132 @@
+\doxysection{App\textbackslash{}Exports\textbackslash{}Presensi\+Export Class Reference}
+\hypertarget{class_app_1_1_exports_1_1_presensi_export}{}\label{class_app_1_1_exports_1_1_presensi_export}\index{App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}}
+Inheritance diagram for App\textbackslash{}Exports\textbackslash{}Presensi\+Export:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.258427cm]{class_app_1_1_exports_1_1_presensi_export}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_app_1_1_exports_1_1_presensi_export_acc614f3f26dba0e0acab1f94f6d387c4}{\+\_\+\+\_\+construct}} (\$bulan, \$tahun, \$divisi\+Id=null)
+\item 
+\doxymbox{\hyperlink{class_app_1_1_exports_1_1_presensi_export_acf4b17bf33da3f2d1c01529325bb88c7}{collection}} ()
+\item 
+\doxymbox{\hyperlink{class_app_1_1_exports_1_1_presensi_export_a6c3050b7ef89c7e4507db5f02b371252}{headings}} ()
+\item 
+\doxymbox{\hyperlink{class_app_1_1_exports_1_1_presensi_export_a387bf48521bf7f68910bbfdf9b3f024a}{map}} (\$row)
+\item 
+\doxymbox{\hyperlink{class_app_1_1_exports_1_1_presensi_export_a3fa938c616d645d2e430c8b9f31e8fee}{styles}} (Worksheet \$sheet)
+\item 
+\doxymbox{\hyperlink{class_app_1_1_exports_1_1_presensi_export_a936a20b786296218f10d42f3416e66fd}{title}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_ac7556f6a9363ee16e6cd060d8d0a5f2f}\label{class_app_1_1_exports_1_1_presensi_export_ac7556f6a9363ee16e6cd060d8d0a5f2f} 
+{\bfseries \$bulan}
+\item 
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_a06ddb2bea9ba7359120c2dc6aac49f15}\label{class_app_1_1_exports_1_1_presensi_export_a06ddb2bea9ba7359120c2dc6aac49f15} 
+{\bfseries \$tahun}
+\item 
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_a61a4f737a498571fd07ad4edd874addc}\label{class_app_1_1_exports_1_1_presensi_export_a61a4f737a498571fd07ad4edd874addc} 
+{\bfseries \$divisi\+Id}
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_acc614f3f26dba0e0acab1f94f6d387c4}\index{App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{class_app_1_1_exports_1_1_presensi_export_acc614f3f26dba0e0acab1f94f6d387c4} 
+App\textbackslash{}\+Exports\textbackslash{}\+Presensi\+Export::\+\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{}]{\$bulan}{, }\item[{}]{\$tahun}{, }\item[{}]{\$divisi\+Id}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Constructor untuk menginisialisasi parameter export.
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$bulan} & Bulan laporan (1-\/12) \\
+\hline
+int & {\em \$tahun} & Tahun laporan \\
+\hline
+int | null & {\em \$divisi\+Id} & ID divisi opsional untuk filter \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_acf4b17bf33da3f2d1c01529325bb88c7}\index{App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}!collection@{collection}}
+\index{collection@{collection}!App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}}
+\doxysubsubsection{\texorpdfstring{collection()}{collection()}}
+{\footnotesize\ttfamily \label{class_app_1_1_exports_1_1_presensi_export_acf4b17bf33da3f2d1c01529325bb88c7} 
+App\textbackslash{}\+Exports\textbackslash{}\+Presensi\+Export::\+collection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mengambil koleksi data presensi untuk export.
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Illuminate\textbackslash{}\+Database\textbackslash{}\+Eloquent\textbackslash{}\+Collection 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_a6c3050b7ef89c7e4507db5f02b371252}\index{App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}!headings@{headings}}
+\index{headings@{headings}!App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}}
+\doxysubsubsection{\texorpdfstring{headings()}{headings()}}
+{\footnotesize\ttfamily \label{class_app_1_1_exports_1_1_presensi_export_a6c3050b7ef89c7e4507db5f02b371252} 
+App\textbackslash{}\+Exports\textbackslash{}\+Presensi\+Export::\+headings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Header kolom Excel.
+
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_a387bf48521bf7f68910bbfdf9b3f024a}\index{App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}!map@{map}}
+\index{map@{map}!App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}}
+{\footnotesize\ttfamily \label{class_app_1_1_exports_1_1_presensi_export_a387bf48521bf7f68910bbfdf9b3f024a} 
+App\textbackslash{}\+Exports\textbackslash{}\+Presensi\+Export::\+map (\begin{DoxyParamCaption}\item[{}]{\$row}{}\end{DoxyParamCaption})}
+
+Mapping data row ke array Excel.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+App\textbackslash{}\textbackslash{}\+Models\textbackslash{}\textbackslash{}\+Presensi & {\em \$row} & Data presensi \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_a3fa938c616d645d2e430c8b9f31e8fee}\index{App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}!styles@{styles}}
+\index{styles@{styles}!App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}}
+\doxysubsubsection{\texorpdfstring{styles()}{styles()}}
+{\footnotesize\ttfamily \label{class_app_1_1_exports_1_1_presensi_export_a3fa938c616d645d2e430c8b9f31e8fee} 
+App\textbackslash{}\+Exports\textbackslash{}\+Presensi\+Export::\+styles (\begin{DoxyParamCaption}\item[{Worksheet}]{\$sheet}{}\end{DoxyParamCaption})}
+
+Styling untuk worksheet Excel.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+Php\+Office\textbackslash{}\textbackslash{}\+Php\+Spreadsheet\textbackslash{}\textbackslash{}\+Worksheet\textbackslash{}\textbackslash{}\+Worksheet & {\em \$sheet} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_exports_1_1_presensi_export_a936a20b786296218f10d42f3416e66fd}\index{App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}!title@{title}}
+\index{title@{title}!App\textbackslash{}Exports\textbackslash{}PresensiExport@{App\textbackslash{}Exports\textbackslash{}PresensiExport}}
+\doxysubsubsection{\texorpdfstring{title()}{title()}}
+{\footnotesize\ttfamily \label{class_app_1_1_exports_1_1_presensi_export_a936a20b786296218f10d42f3416e66fd} 
+App\textbackslash{}\+Exports\textbackslash{}\+Presensi\+Export::\+title (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Judul sheet Excel.
+
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+app/\+\+Exports/\+Presensi\+Export.\+php\end{DoxyCompactItemize}
