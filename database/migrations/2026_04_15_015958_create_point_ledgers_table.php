@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('point_ledgers', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->enum('transaction_type', ['EARN', 'SPEND', 'PENALTY']);
+            $table->integer('amount'); // jumlah poin
+            $table->integer('current_balance'); // saldo setelah transaksi
+            $table->text('description')->nullable();
+            $table->foreignId('presensi_id')->nullable()->constrained('presensi')->nullOnDelete();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('point_ledgers');
+    }
+};

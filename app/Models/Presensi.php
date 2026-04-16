@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 // [INHERITANCE] = class Presensi mewarisi semua fitur dari class Model Laravel
 /**
- * @package App\\Models
+ * @package App\Models
  * @author AbsensiKu
  * @version 1.0.0
- * 
+ *
  * Model Eloquent untuk data presensi karyawan harian.
  */
 class Presensi extends Model
@@ -37,7 +37,7 @@ class Presensi extends Model
     // cara pakai: $presensi->karyawan->nama
     /**
      * Relasi ke karyawan.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function karyawan()
@@ -49,11 +49,35 @@ class Presensi extends Model
     // cara pakai: $presensi->shift->nama_shift
     /**
      * Relasi ke shift kerja.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function shift()
     {
         return $this->belongsTo(Shift::class);
+    }
+
+    // [METHOD + RELASI hasMany] = 1 presensi bisa punya banyak mutasi poin
+    // cara pakai: $presensi->pointLedgers
+    /**
+     * Relasi ke ledger poin yang dipicu presensi ini.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pointLedgers()
+    {
+        return $this->hasMany(PointLedger::class);
+    }
+
+    // [METHOD + RELASI hasOne] = 1 presensi bisa punya 1 token yang dipakai
+    // cara pakai: $presensi->usedToken
+    /**
+     * Relasi ke token kelonggaran yang dipakai saat presensi ini.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function usedToken()
+    {
+        return $this->hasOne(UserToken::class, 'used_at_attendance_id');
     }
 }

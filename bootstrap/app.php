@@ -11,12 +11,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-         $middleware->alias([
-        'role.admin'    => \App\Http\Middleware\RoleAdmin::class,
-        'role.karyawan' => \App\Http\Middleware\RoleKaryawan::class,
-        'role'          => \App\Http\Middleware\RoleMiddleware::class,
-    ]);
+        $middleware->alias([
+            'role.admin'    => \App\Http\Middleware\RoleAdmin::class,
+            'role.karyawan' => \App\Http\Middleware\RoleKaryawan::class,
+            'role'          => \App\Http\Middleware\RoleMiddleware::class,
+        ]);
     })
+    ->withEvents(discover: [        // [TAMBAH INI]
+        __DIR__.'/../app/Listeners',
+    ])
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();

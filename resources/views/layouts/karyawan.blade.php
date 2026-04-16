@@ -54,17 +54,19 @@
                 </svg>
                 <span>Dashboard</span>
             </a>
+            
             <a href="{{ route('karyawan.presensi.index') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.presensi.*') ? 'active' : '' }}">
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                 </svg>
                 <span>Presensi</span>
             </a>
+            
             <a href="{{ route('karyawan.izin-cuti.index') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.izin-cuti.*') ? 'active' : '' }}">
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
-                <span>Izin & Cuti</span>
+                <span>Izin Cuti</span>
             </a>
 
             {{-- Rapor Penilaian --}}
@@ -74,6 +76,16 @@
                 </svg>
                 <span>Rapor</span>
             </a>
+
+            {{-- 👇 DOMPET INTEGRITAS (BARU) 👇 --}}
+            <a href="{{ route('karyawan.integrity.index') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.integrity.*') ? 'active' : '' }}">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+                <span>Integritas</span>
+            </a>
+            {{-- 👆 SAMPAI SINI 👆 --}}
 
             <a href="{{ route('karyawan.profil') }}" class="bottom-nav-item {{ request()->routeIs('karyawan.profil*') ? 'active' : '' }}">
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

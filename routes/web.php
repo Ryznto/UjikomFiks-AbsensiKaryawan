@@ -67,9 +67,26 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role.admin'])->grou
     Route::get('assessments/create/{karyawan}', [App\Http\Controllers\Admin\AssessmentController::class, 'create'])->name('assessments.create');
     Route::post('assessments', [App\Http\Controllers\Admin\AssessmentController::class, 'store'])->name('assessments.store');
     Route::get('assessments/{assessment}', [App\Http\Controllers\Admin\AssessmentController::class, 'show'])->name('assessments.show');
+
+    // ── Integrity / Gamifikasi ────────────────────────────────────────
+    Route::get('point-rules', [App\Http\Controllers\Admin\PointRuleController::class, 'index'])->name('point-rules.index');
+    Route::post('point-rules', [App\Http\Controllers\Admin\PointRuleController::class, 'store'])->name('point-rules.store');
+    Route::put('point-rules/{pointRule}', [App\Http\Controllers\Admin\PointRuleController::class, 'update'])->name('point-rules.update');
+    Route::patch('point-rules/{pointRule}/toggle', [App\Http\Controllers\Admin\PointRuleController::class, 'toggle'])->name('point-rules.toggle');
+    Route::delete('point-rules/{pointRule}', [App\Http\Controllers\Admin\PointRuleController::class, 'destroy'])->name('point-rules.destroy');
+
+    Route::get('flexibility-items', [App\Http\Controllers\Admin\FlexibilityItemController::class, 'index'])->name('flexibility-items.index');
+    Route::post('flexibility-items', [App\Http\Controllers\Admin\FlexibilityItemController::class, 'store'])->name('flexibility-items.store');
+    Route::put('flexibility-items/{flexibilityItem}', [App\Http\Controllers\Admin\FlexibilityItemController::class, 'update'])->name('flexibility-items.update');
+    Route::patch('flexibility-items/{flexibilityItem}/toggle', [App\Http\Controllers\Admin\FlexibilityItemController::class, 'toggle'])->name('flexibility-items.toggle');
+    Route::delete('flexibility-items/{flexibilityItem}', [App\Http\Controllers\Admin\FlexibilityItemController::class, 'destroy'])->name('flexibility-items.destroy');
+
+    // ── Leaderboard ────────────────────────────────────────────────────
+    Route::get('leaderboard', [App\Http\Controllers\Admin\LeaderboardController::class, 'index'])->name('leaderboard');
 });
 
 // ── Karyawan ──────────────────────────────────────────────────────
+
 Route::prefix('karyawan')->name('karyawan.')->middleware(['auth', 'role.karyawan'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Karyawan\DashboardController::class, 'index'])->name('dashboard');
     Route::get('presensi', [App\Http\Controllers\Karyawan\PresensiController::class, 'index'])->name('presensi.index');
@@ -86,4 +103,8 @@ Route::prefix('karyawan')->name('karyawan.')->middleware(['auth', 'role.karyawan
     // ── Rapor Penilaian ───────────────────────────────
     Route::get('my-report', [App\Http\Controllers\Karyawan\AssessmentController::class, 'myReport'])->name('assessments.my-report');
     Route::get('my-report/{assessment}', [App\Http\Controllers\Karyawan\AssessmentController::class, 'show'])->name('assessments.show');
+
+    // ── Integrity / Dompet Poin ───────────────────────────────────────
+    Route::get('integrity', [App\Http\Controllers\Karyawan\IntegrityController::class, 'index'])->name('integrity.index');
+    Route::post('integrity/buy/{item}', [App\Http\Controllers\Karyawan\IntegrityController::class, 'buyToken'])->name('integrity.buy');
 });

@@ -1,0 +1,2 @@
+http://absensi-karyawan.test/admin/point-rules
+http://absensi-karyawan.test/admin/flexibility-items

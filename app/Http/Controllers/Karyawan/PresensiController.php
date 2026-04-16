@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\IzinCuti;
+use App\Events\PresensiDisimpan;
 
 // [INHERITANCE] = PresensiController mewarisi fitur dari Controller Laravel
 class PresensiController extends Controller
@@ -104,7 +105,8 @@ class PresensiController extends Controller
         $statusAbsen = $jamMasuk->gt($batasWaktu) ? 'terlambat' : 'tepat_waktu';
 
         // [OBJECT] = simpan data presensi masuk ke database
-        Presensi::create([
+        // [OBJECT] = simpan data presensi masuk ke database
+        $presensi = Presensi::create([
             'karyawan_id'  => $karyawan->id,
             'shift_id'     => $karyawan->shift_id,
             'tanggal'      => $today,
@@ -114,6 +116,9 @@ class PresensiController extends Controller
             'longitude'    => $request->longitude,
             'status_absen' => $statusAbsen,
         ]);
+
+        // [EVENT] = trigger Rule Engine & Token Interceptor secara otomatis
+        \App\Events\PresensiDisimpan::dispatch($presensi);
 
         return response()->json(['message' => 'Absen masuk berhasil!', 'status' => $statusAbsen]);
     }
